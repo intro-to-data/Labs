@@ -1,0 +1,25 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1579015877218.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "9942FF00",
+    "lastKnownWriteTime" : 1579019856,
+    "last_content_update" : 1579019856648,
+    "path" : "~/Documents/Intro To Data/Labs/Week 01/Week 01 Lab - Roll The Dice (R).R",
+    "project_path" : "Week 01/Week 01 Lab - Roll The Dice (R).R",
+    "properties" : {
+        "cursorPosition" : "58,45",
+        "scrollLine" : "54"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 3,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

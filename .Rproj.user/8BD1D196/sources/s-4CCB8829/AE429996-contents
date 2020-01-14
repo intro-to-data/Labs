@@ -1,0 +1,23 @@
+# Week 01 Lab: Roll The Dice
+
+dice_1 <- c(1,2,3,4)
+dice_2 <- c(6,7,8,9)
+
+avg_1 <- mean(dice_1)
+avg_1
+
+# Find the average of dice_2
+
+sum_1 <- sum(dice_1)
+sum_1
+
+# Find the sum of dice_2
+
+row_sum <- dice_1 + dice_2
+row_sum
+
+row_mean <- numeric(0)
+for(i in seq_along(dice_1)) {
+    row_mean[i] <- mean(c(dice_1[i],dice_2[i]))
+}
+row_mean
