@@ -44,11 +44,6 @@ As with all things programming, Google is your friend. And,
        alt="XKCD Tech Support Comic">
 </p>
 
-
-![XKCD Tech Support Comic]( )
-
-</center><br />
-
 ## Lab
 
 You are welcome to use your personal laptop or the VMWare virtual desktop for
@@ -68,8 +63,8 @@ Please answer the following questions on Canvas.
 1. Thought experiment: If you roll the dice I gave you an infinite number of
 times, what percentage of these rolls would be a "1"? (You may assume the dice I
 purchased are perfect, you have a perfect roll, etc.)
-
-2. Let's say I rolled the dice 100 ties, and I rolled a "1" thirty percent of the time. Are you surprised? Why/Why not?
+2. Let's say I rolled the dice 100 ties, and I rolled a "1" thirty percent of
+the time. Are you surprised? Why/Why not?
 
 ### Part 2: Roll The Dice, Spreadsheet Edition
 
