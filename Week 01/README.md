@@ -95,6 +95,8 @@ file in your `Week 01` folder.
 die is `Die 1` and which is `Die 2`, that is up to you. 
    - Note: The only valid entries for columns `D` and `E` are integers between 1
    and 6.
+   - Becase of the headers, the fifteenth row of data is on the sixteenth row of
+   the worksheet.
 4. **Row Sum:** Calculate the sum of the two dice, for each roll R01 - R15. You
 can do this with a formula using either the `+` operator or `sum` function.
    - Note: The only possible valid entries for column `F` are between 2 and 12.
@@ -112,10 +114,6 @@ each roll is $(Die 1 + Die 2) / 2$
   <img src=https://github.com/intro-to-data/Labs/raw/master/Week%2001/ss01.png 
        alt="Read Me worksheet">
 </p>
-
-
-Please note that becase of the headers, the fifteenth row of data is on the
-sixteenth row of the worksheet.
 
 Congrats. You have completed Part Two of this lab. Please submit the Excel file
 via Canvas.
