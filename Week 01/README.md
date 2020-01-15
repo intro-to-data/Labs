@@ -38,11 +38,11 @@ be useful.
 As with all things programming, Google is your friend. And,
 [XKCD](https://www.xkcd.com/) provides us with additional, relevant, guidance.
 
-<center>
+<center><br/>
 
-![XKCD Tech Support Comic](https://imgs.xkcd.com/comics/tech_support_cheat_sheet.png "XKCD Tech Support Comic"){width=60%}
+![XKCD Tech Support Comic](https://imgs.xkcd.com/comics/tech_support_cheat_sheet.png "XKCD Tech Support Comic")
 
-</center>
+</center><br />
 
 ## Lab
 
@@ -73,7 +73,9 @@ stored in a workbook. Within a workbook, there can be multiple worksheets, which
 is similar to having multiple tabs in a browser.
 
 <center><br/>
+
 ![Multiple Worksheets in LibreOffice](https://github.com/intro-to-data/Labs/raw/master/Week%2001/ss00.png)
+
 </center><br/>
 
 1. Download the lab workbook, [here](./Roll\ The\ Dice\ (Excel).xlsx). Save this
@@ -85,8 +87,10 @@ file in your `Week 01` folder.
      Spelling and capitalization matter.
    - All 15 rows should have the same entries for the first two columns.
 
-<center><br />    
+<center><br /> 
+
 ![Example Data Entries in LibreOffice](https://github.com/intro-to-data/Labs/raw/master/Week%2001/ss02.png)
+
 </center><br />
 
 3. Use the two dice provided in class to roll 15 pairs of results. As for which
