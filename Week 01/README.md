@@ -4,7 +4,7 @@ This is your first lab. This is a multi-part lab.
 
 - Part 1: Prologue. You should answer these questions on Canvas.
 - Part 2: Roll The Dice, Spreadsheet Edition
-- Part 3: Roll The Die, R Edition
+- Part 3: Roll The Dice, R Edition
 - Part 4: Review
 
 This is also an oportunity to roll some dice and create some random samples 
@@ -119,7 +119,7 @@ each roll is $(Die 1 + Die 2) / 2$
 Congrats. You have completed Part Two of this lab. Please submit the Excel file
 via Canvas.
 
-### Part 3: Roll The Die, R Edition
+### Part 3: Roll The Dice, R Edition
 
 We will now perform some similar calculations in R. I am generally opposed to
 typing the same thing twice. But, in this case, I'm going to make an exception.
