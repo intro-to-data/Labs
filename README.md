@@ -9,6 +9,6 @@ Data course. Each week will will have a folder with the full contents of the lab
 
 ## Labs
 
-- [Week 01](./Week%2001/)
+- [Week 01](https://github.com/intro-to-data/Labs/blob/master/Week%2001/README.md)
 
 Does this all look a little incomplete? Additional labs will be added over time.

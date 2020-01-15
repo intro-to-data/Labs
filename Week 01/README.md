@@ -73,12 +73,13 @@ stored in a workbook. Within a workbook, there can be multiple worksheets, which
 is similar to having multiple tabs in a browser.
 
 <p align="center">
-  <img src=https://github.com/intro-to-data/Labs/raw/master/Week%2001/ss00.png 
+  <img src=https://github.com/intro-to-data/Labs/raw/master/Week%2001/ss00.png
        alt="Multiple Worksheets in LibreOffice">
 </p>
 
-1. Download the lab workbook, [here](./Roll\ The\ Dice\ (Excel).xlsx). Save this
-file in your `Week 01` folder.
+1. Download the [lab
+workbook](https://github.com/intro-to-data/Labs/raw/master/Week%2001/Week%2001%20Lab%20-%20Roll%20The%20Dice%20(Excel).xlsx).
+Save this file in your `Week 01` folder.
    - On the `Read Me` worksheet, there are some additional in-line instructions.
 2. On the `Data` worksheet, fill-in the missing values for `Initials` and `Favorite Color`.
    - **Initials:** Since my name is Andy Choens, I would enter AC.
@@ -123,9 +124,10 @@ via Canvas.
 We will now perform some similar calculations in R. I am generally opposed to
 typing the same thing twice. But, in this case, I'm going to make an exception.
 We need to put enter our dice rolls into R and perform the same calculations.
-Download the [Week 01 Lab - Roll The Dice (R).R](./Week 01 Lab - Roll The Dice
-(R).R) file. Place this script file in your `Week 01` folder, and open the .R file
-in RStudio.
+Download the <a
+href="https://github.com/intro-to-data/Labs/raw/master/Week%2001/Week%2001%20Lab%20-%20Roll%20The%20Dice%20(R).R"
+download>Week 01 Lab - Roll The Dice (R).R</a> file. Place this script file in
+your `Week 01` folder, and open the .R file in RStudio.
 
 1. The .R script is contains instructions as comments. Once you have completed
 the tasks in the script, please submit the completed script via Canvas.
