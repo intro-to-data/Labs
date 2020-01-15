@@ -9,6 +9,6 @@ Data course. Each week will will have a folder with the full contents of the lab
 
 ## Labs
 
-- [Week 01](./Week\ 01/README.md)
+- [Week 01](Week%2001/)
 
 Does this all look a little incomplete? Additional labs will be added over time.
