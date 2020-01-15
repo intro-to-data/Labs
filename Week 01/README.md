@@ -38,9 +38,14 @@ be useful.
 As with all things programming, Google is your friend. And,
 [XKCD](https://www.xkcd.com/) provides us with additional, relevant, guidance.
 
-<center><br/>
+<p align="center">
+  <img width="60%" 
+       src="https://imgs.xkcd.com/comics/tech_support_cheat_sheet.png" 
+       alt="XKCD Tech Support Comic">
+</p>
 
-![XKCD Tech Support Comic](https://imgs.xkcd.com/comics/tech_support_cheat_sheet.png "XKCD Tech Support Comic")
+
+![XKCD Tech Support Comic]( )
 
 </center><br />
 
@@ -72,11 +77,10 @@ Data and code in a spreadsheet (Excel, LibreOffice, Google Sheets, etc.) is
 stored in a workbook. Within a workbook, there can be multiple worksheets, which
 is similar to having multiple tabs in a browser.
 
-<center><br/>
-
-![Multiple Worksheets in LibreOffice](https://github.com/intro-to-data/Labs/raw/master/Week%2001/ss00.png)
-
-</center><br/>
+<p align="center">
+  <img src=https://github.com/intro-to-data/Labs/raw/master/Week%2001/ss00.png 
+       alt="Multiple Worksheets in LibreOffice">
+</p>
 
 1. Download the lab workbook, [here](./Roll\ The\ Dice\ (Excel).xlsx). Save this
 file in your `Week 01` folder.
@@ -87,11 +91,10 @@ file in your `Week 01` folder.
      Spelling and capitalization matter.
    - All 15 rows should have the same entries for the first two columns.
 
-<center><br /> 
-
-![Example Data Entries in LibreOffice](https://github.com/intro-to-data/Labs/raw/master/Week%2001/ss02.png)
-
-</center><br />
+<p align="center">
+  <img src=https://github.com/intro-to-data/Labs/raw/master/Week%2001/ss02.png 
+       alt="Example Data Entries in LibreOffice">
+</p>
 
 3. Use the two dice provided in class to roll 15 pairs of results. As for which
 die is `Die 1` and which is `Die 2`, that is up to you. 
@@ -109,6 +112,12 @@ each roll is $(Die 1 + Die 2) / 2$
    unlikely, for `Die 1`, the `Die 1 Average` would be 3 and `Die 1 Sum` would
    be 45. If you can figure it out, you can round your answers to the second
    decimal place with the `round` function.
+
+<p align="center">
+  <img src=https://github.com/intro-to-data/Labs/raw/master/Week%2001/ss01.png 
+       alt="Read Me worksheet">
+</p>
+
 
 Please note that becase of the headers, the fifteenth row of data is on the
 sixteenth row of the worksheet.
