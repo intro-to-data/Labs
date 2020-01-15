@@ -39,7 +39,7 @@ As with all things programming, Google is your friend. And,
 [XKCD](https://www.xkcd.com/) provides us with additional, relevant, guidance.
 
 <center>
-![XKCD Tech Support](https://imgs.xkcd.com/comics/tech_support_cheat_sheet.png)
+![XKCD Tech Support Comic](https://imgs.xkcd.com/comics/tech_support_cheat_sheet.png "XKCD Tech Support Comic"){width=60%}
 </center>
 
 ## Lab
