@@ -132,6 +132,29 @@ in RStudio.
 1. The .R script is contains instructions as comments. Once you have completed
 the tasks in the script, please submit the completed script via Canvas.
 
+<p align="center">
+  <img src=https://github.com/intro-to-data/Labs/raw/master/Week%2001/ss04.png 
+       alt="R Script with in-line instructions">
+</p>
+
+2. There are parts of this script which require very little additional effort.
+For example, below, you must enter your initials to create a vector (column) of
+your initials.
+
+<p align="center">
+  <img src=https://github.com/intro-to-data/Labs/raw/master/Week%2001/ss05.png 
+       alt="You should run this part. Look at the code. Does it make sense?">
+</p>
+
+3. And there are parts of this script you should complete. Below, it is your
+responsibility to write the code to create the `row_sums` vector.
+
+<p align="center">
+  <img src=https://github.com/intro-to-data/Labs/raw/master/Week%2001/ss06.png 
+       alt="You need to write this part of the script.">
+</p>
+
+If you aren't sure what to do, let me know via Canvas.
 Congrats, you have completed Part 3 of the lab. Please submit your .R script via
 Canvas.
 
