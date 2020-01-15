@@ -124,7 +124,7 @@ via Canvas.
 We will now perform some similar calculations in R. I am generally opposed to
 typing the same thing twice. But, in this case, I'm going to make an exception.
 We need to put enter our dice rolls into R and perform the same calculations.
-Download the <a href="https://github.com/intro-to-data/Labs/raw/master/Week%2001/Week%2001%20Lab%20-%20Roll%20The%20Dice%20(R).R" download>Week 01 Lab - Roll The Dice (R).R</a> 
+Download the <a id="raw-url" href="https://raw.githubusercontent.com/intro-to-data/Labs/master/Week%2001/Week%2001%20Lab%20-%20Roll%20The%20Dice%20(R).R">Week 01 Lab - Roll The Dice (R).R</a> 
 file. Place this script file in your `Week 01` folder, and open the .R file in
 RStudio.
 
