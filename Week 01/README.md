@@ -161,7 +161,8 @@ Canvas.
 
 ### Part 4: Review
 
-Please answer the following questions on Canvas.
+Please answer the following questions on Canvas. There are no right or wrong 
+answers here. I'm just looking for your thoughts.
 
 1. What questions/concerns do you have about this course right now?
 2. What questions/concerns do you have about Excel right now?
