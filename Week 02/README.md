@@ -37,7 +37,7 @@ data visually. To do so, you must first understand when to use different kinds
 of graphs/plots of data.
 
 Below are some useful links which we discussed in class:
-- [Data To Viz/](https://www.data-to-viz.com/)
+- [Data To Viz](https://www.data-to-viz.com/)
 - [GGPlot Documentation](https://ggplot2.tidyverse.org/index.html)
 - [Excel - Create a Chart from Start to Finish](https://support.office.com/en-us/article/create-a-chart-from-start-to-finish-0baf399e-dd61-4e18-8a73-b3fd5d5680c2?ui=en-US&rs=en-US&ad=US)
 - [Excel - Available Chart Types in Office](https://support.office.com/en-us/article/Available-chart-types-in-Office-a6187218-807e-4103-9e0a-27cdb19afb90)
@@ -48,7 +48,7 @@ You can complete this lab using any mainstream spreadsheet program.
 
 ## Tasks
 
-1. Download the [diamonds.csv](https://raw.githubusercontent.com/intro-to-data/Labs/master/Week%2002/diamonds.csv) dataset.
+1. Download the <a href = "https://raw.githubusercontent.com/intro-to-data/Labs/master/Week%2002/diamonds.csv" download> dataset</a>.
 2. Import the diamonds.csv data into Excel. 
    - The most common way to do this is to click on a local copy of the 
    diamonds.csv file and let Excel recommend how to import it.
@@ -68,7 +68,7 @@ You can complete this lab using any mainstream spreadsheet program.
    - Create a second worksheet to hold your plots. Putting everything into one
    worksheet can be confusing and hard to read.
 3. Create a scatter plot which shows the relationship between carats and price.
-4. Create a scatter plot which shows the relationship between clarity and price.
+4. Create a box plot which shows the relationship between clarity and price.
 5. Create a bar plot to determine me which diamond cut is most frequent in this
 dataset.
 
@@ -130,7 +130,7 @@ your script easier for me to understand.
 3. Create a scatter plot which shows the relationship between carats and price.
    - The first step is to use the `ggplot` function.
    - See `geom_point()`
-4. Create a scatter plot which shows the relationship between clarity and price.
+4. Create a boxplot plot which shows the relationship between clarity and price.
 5. Create a bar plot to determine me which diamond cut is most frequent in this
 dataset.
    - `geom_bar()` will be useful.
