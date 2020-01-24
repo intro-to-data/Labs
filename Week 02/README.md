@@ -52,6 +52,10 @@ You can complete this lab using any mainstream spreadsheet program.
 2. Import the diamonds.csv data into Excel. 
    - The most common way to do this is to click on a local copy of the 
    diamonds.csv file and let Excel recommend how to import it.
+   - *If you are having a hard time saving/opening the CSV file in Excel from
+   GitHub, try using the copy I saved to Canvas in the Lab 02 description.
+   Apparently, some Windows browsers turn the .csv file into a .txt file which
+   makes it harder to import the data into Excel than is necessary.*
    - If you prefer to avoid the clutter of downloading the data to your local
       computer/VM, you can also use the above link to open/import the data
       directly in Excel. To do this, start Excel, and then hit the `File Open`
