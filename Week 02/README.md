@@ -68,7 +68,8 @@ You can complete this lab using any mainstream spreadsheet program.
    - Create a second worksheet to hold your plots. Putting everything into one
    worksheet can be confusing and hard to read.
 3. Create a scatter plot which shows the relationship between carats and price.
-4. Create a box plot which shows the relationship between clarity and price.
+4. Create a box plot which shows how price varies across diamonds of different
+clarity.
 5. Create a bar plot to determine me which diamond cut is most frequent in this
 dataset.
 
@@ -130,7 +131,8 @@ your script easier for me to understand.
 3. Create a scatter plot which shows the relationship between carats and price.
    - The first step is to use the `ggplot` function.
    - See `geom_point()`
-4. Create a boxplot plot which shows the relationship between clarity and price.
+4. Create a box plot which shows how price varies across diamonds of different
+clarity.
 5. Create a bar plot to determine me which diamond cut is most frequent in this
 dataset.
    - `geom_bar()` will be useful.
