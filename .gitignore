@@ -2,3 +2,7 @@
 *.Rhistory
 .Rproj.user
 README.html
+*.zip
+*.xlsx
+*.csv
+*.feather
