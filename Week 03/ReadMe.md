@@ -22,7 +22,7 @@ feedback.
 
 <div style="float:right; width:49%">
 
-[Criteria](https://imgs.xkcd.com/comics/realistic_criteria.png)
+![Criteria](https://imgs.xkcd.com/comics/realistic_criteria.png)
 
 </div>
 
