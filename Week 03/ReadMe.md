@@ -46,19 +46,33 @@ feedback.
    `new-york-city-airbnb-open-data.zip`. Do not change the name of
    this file or unzip it. Or, if you do, altering the provided R
    script is your responsibility.
-5. Download the helper R script I wrote. Save this file in the project
-   folder. There's no reason to, but renaming this file will not break
-   anyhing.
-6. Import the data. To do this, run the first 21 lines of the Airbnb.R
-   script. Once you have done this, please continue to the EDA section
+   
+   ![Download](https://raw.githubusercontent.com/intro-to-data/Labs/master/Week%2003/00.png)
+   
+5. Download the <a
+   href="https://raw.githubusercontent.com/intro-to-data/Labs/master/Week%2003/Airbnb.R"
+   download>Airbnb.R</a> script I wrote to help you complete this
+   lab. Save this file in the project folder. There's no reason to,
+   but renaming this file will not break anyhing. Once you have completed steps four and five, your folder should look something like this.
+   
+   ![Airbnb](https://raw.githubusercontent.com/intro-to-data/Labs/master/Week%2003/01.png)
+   
+6. Import the data. To do this, run the first 21 lines of the <a
+   href="https://raw.githubusercontent.com/intro-to-data/Labs/master/Week%2003/Airbnb.R"
+   download>Airbnb.R</a> script. You should have created a data
+   frame/tibble called Airbnb (remember, capitalization matters).
+
+   ![Airbnb](https://raw.githubusercontent.com/intro-to-data/Labs/master/Week%2003/02.png)
+
+   Once you have done this, please continue to the EDA section
    and complete the lab questions.
+
+
 
 ## EDA
 
 These questions should be answered in Canvas. In the Canvas version,
-there may be additional information, links, suggestions, etc. You
-should have created a data frame/tibble called Airbnb (remember,
-capitalization matters).
+there may be additional information, links, suggestions, etc. 
 
 1. How many rows of data do you have (Airbnb)?
 2. How many columns of data do you have (Airbnb)?
@@ -68,4 +82,4 @@ capitalization matters).
    you aren't familiar with Airbnb, look at [their
    website](https://www.airbnb.com).
 
-In order to answer the remaining lab questions, you will need to find the appropriate part of the `Airbnb.R` file.
+In order to answer the remaining lab questions, you will need to find the appropriate part of the <a href="https://raw.githubusercontent.com/intro-to-data/Labs/master/Week%2003/Airbnb.R" download>Airbnb.R</a> file.
