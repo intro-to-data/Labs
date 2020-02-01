@@ -16,7 +16,7 @@ get a Kaggle account.
 This lab is R-based only. If you manage to crash Excel while
 completing this lab, you are doing it wrong. I am going to try a few
 new/different ideas here. I am, as always, open and interested in your
-feedback.  
+feedback.
 
 </div>
 
@@ -52,10 +52,12 @@ feedback.
 5. Download the <a
    href="https://raw.githubusercontent.com/intro-to-data/Labs/master/Week%2003/Airbnb.R"
    download>Airbnb.R</a> script I wrote to help you complete this
-   lab. Save this file in the project folder. There's no reason to,
-   but renaming this file will not break anyhing. Once you have completed steps four and five, your folder should look something like this.
+   lab. Save this file in the project folder. This file is also
+   attached to the lab introduction in Canvas. Once you have
+   completed steps four and five, your folder should look something
+   like this.
    
-   ![Airbnb](https://raw.githubusercontent.com/intro-to-data/Labs/master/Week%2003/01.png)
+   ![Your Project](https://raw.githubusercontent.com/intro-to-data/Labs/master/Week%2003/01.png)
    
 6. Import the data. To do this, run the first 21 lines of the <a
    href="https://raw.githubusercontent.com/intro-to-data/Labs/master/Week%2003/Airbnb.R"
@@ -68,18 +70,44 @@ feedback.
    and complete the lab questions.
 
 
-
 ## EDA
 
-These questions should be answered in Canvas. In the Canvas version,
-there may be additional information, links, suggestions, etc. 
+The following three questions should be answered in Canvas:
 
-1. How many rows of data do you have (Airbnb)?
-2. How many columns of data do you have (Airbnb)?
-3. What is the grain of this Airbnb data? For more information about
+01. How many rows of data do you have (Airbnb)?
+02. How many columns of data do you have (Airbnb)?
+03. What is the grain of this Airbnb data? For more information about
    the data, please read the [Kaggle
    documentation](https://www.kaggle.com/dgomonov/new-york-city-airbnb-open-data/data#). If
    you aren't familiar with Airbnb, look at [their
    website](https://www.airbnb.com).
 
-In order to answer the remaining lab questions, you will need to find the appropriate part of the <a href="https://raw.githubusercontent.com/intro-to-data/Labs/master/Week%2003/Airbnb.R" download>Airbnb.R</a> file.
+In order to answer the remaining lab questions, you will need to find
+the appropriate part of the <a
+href="https://raw.githubusercontent.com/intro-to-data/Labs/master/Week%2003/Airbnb.R"
+download>Airbnb.R</a> file. Please run or complete the relevant
+portion of the code.
+
+04. Draw a bar graph showing the number of Airbnb hosts per
+    neighbourhood_group. Which neighbourhood has the most hosts?
+05. How many hosts are in Queens?
+06. Which room_type is the most prevalent in the Bronx?
+07. What is the average price of a room in Belmont?
+
+08. Do you think the number_of_reviews is a good predictor of price?
+09. Please discuss and upload your graph
+10. Draw a density plot of host price. How would you describe it? Is
+    it normally distributed? Does it have a long tail? Is it skewed?
+11. The price of Airbnb hosts is obviously all over the place (that is a
+    technical term). Which `room_type` has the most outlier prices?
+    "Entire home/apt" or "Shared room"
+12. Please upload the resulting plot to Canvas.
+13. What is the average price of of a "Shared room"?
+14. How many "Shared room" entries are in the data?
+15. Is this a large enough sample to be useful?
+16. Soon we will start thinking about building a linear model to
+    predict Airbnb host price in NYC. Use your transformation/plotting
+    skills to look at the data. Which features (columns) do you think
+    would be most useful for predicting price? Write in some code
+    below. You can describe what you find in Canvas. 
+17. Save your Airbnb.R file and upload it via Canvas.
