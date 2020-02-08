@@ -5,6 +5,7 @@
 
 ## INIT ========================================================================
 library(tidyverse)
+options(scipen = 999)
 
 
 ## DATA =======================================================================
@@ -37,10 +38,10 @@ sd_log_charges <- sd(log(Insurance$charges))
 ## - https://en.wikipedia.org/wiki/Multimodal_distribution
 ## - https://en.wikipedia.org/wiki/Log-normal_distribution
 ##
-## How would you describe the distribution of charges? This data is
-## obviously skewed. Is the data multi-modal? Do you believe it
-## roughly follows the log-normal distribution? An eye-ball assessment
-## is fine. I am not asking for a formal statistical test.
+## How would you describe the distribution of charges? Is the data
+## multi-modal? Do you believe it roughly follows the log-normal
+## distribution? An eye-ball assessment is fine. I am not asking for a
+## formal statistical test.
 
 ggplot(Insurance, aes(charges)) +
     geom_density() +
@@ -95,12 +96,7 @@ Insurance %>% summarize(MeanLogCharges = mean(log_charges))
 ## mean() and standard deviation is sd().
 
 ## Your code here.
-Insurance %>%
-     group_by(sex) %>%
-     summarize(AvgCharge = mean(charges),
-               SDCharge  = sd(charges))
-
-## In Canvas, please  enter the average charge for males.
+## In Canvas, enter the average charge for males.
 
 
 ## Question 05: Average Log Charges
@@ -108,23 +104,19 @@ Insurance %>%
 ## This is just like question 3, but applied to a different column.
 
 ## Your code here.
-Insurance %>%
-     group_by(sex) %>%
-     summarize(AvgCharge = mean(log_charges),
-               SDCharge  = sd(log_charges))
-
-## In cavas, please enter the average log_charge for males.
+## In cavas, enter the average log_charges for males.
 
 
 ## Question 06:
 ##
 ## - https://en.wikipedia.org/wiki/Coefficient_of_variation
 ##
-## Obviously, the average of log_charge is different than the average
-## charge. Now, let's discuss the differences in standard deviation.
+## The average of log_charges is different than the average
+## charge. Now, let's discuss the differences in standard
+## deviation. One way to do so is to use the coefficient of variation.
 ##
 ## Calculate the coefficient of variation for charges and log_charges.
-## Anytime you are compariing groups where the sd is a high proportion
+## Anytime you are comparing groups where the sd is a high proportion
 ## of the mean, you have the opportunity for misleading results.
 ## Note: This happens frequently.
 
@@ -136,10 +128,9 @@ Insurance %>%
 ##
 ## https://en.wikipedia.org/wiki/Student%27s_t-test
 ##
-## We haven't done this yet in class, so I'm going to give you the
-## code. The t-test is a classic test used for comparing the average
-## of two groups. But, this data violates a key assumption of the
-## t-test. The charges data is not even a little normalized.
+## The t-test is a classic test used for comparing the average of two
+## groups. But, this data violates a key assumption of the t-test. The
+## charges data is not even a little normalized.
 
 
 ?t.test ## Read the t.test function documentation.
@@ -191,8 +182,8 @@ ggplot(Insurance, aes(age, charges, color = smoker)) +
 
 ## Question 09: Charges as a function of bmi and smoker status.
 ##
-## Create a linear regression, like we did in the previous
-## question. The x-axis should be bmi, the y-axis shoud be charges,
+## Create a linear regression in ggplot, like we did in the previous
+## question. The x-axis should be bmi, the y-axis should be charges,
 ## and color should be smoker status.
 
 ## Your code here.

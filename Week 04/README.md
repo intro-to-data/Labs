@@ -1,11 +1,11 @@
 # Week 04 - Insurance Charges
 
-I hope you will enjoy this lab. I know I enjoyed working through the
+I hope you enjoy this lab. I know I enjoyed working through the
 data. Our dataset this week comes, again, from Kaggle, and is a famous
 [insurance data set](https://www.kaggle.com/mirichoi0218/insurance) to
 explore linear regressions.
 
-[Insurance](https://en.wikipedia.org/wiki/History_of_insurance) as a
+[Insurance](https://en.wikipedia.org/wiki/History_of_insurance), as a
 concept is actually quite old. Regardless of what one insures, it is a
 means to share risk. In health insurance, risks are not evenly
 distributed. The majority of the students in the class are 19 years
@@ -20,27 +20,27 @@ href="https://raw.githubusercontent.com/intro-to-data/Data/master/insurance.csv"
 download>insurance.csv</a> dataset and save it in the root folder of
 the `Insurance` project.
 
-Run the first 20 lines of code to import your data. Because of the
+Run the first 20 lines of code in <a href="https://raw.githubusercontent.com/intro-to-data/Labs/master/Week%2004/Insurance.R" download>Insurance.R</a> to import your data. Because of the
 problems last week, I wrote a chunk of code which looks for the
 `insurance.csv` file and will return an error to you if it cannot see
 it. This will certainly help me help some of you who get stuck on this
 step.
 
-Be sure to run lines 28-31, or some of the demo code will not run. I
+Be sure to run lines 28-31, or the demo code will not run. I
 have included a fair amount of demo data in this lab because I want
 you to spend some time this week thinking critically about the
 _meaning_ of what we are doing.
 
 ### Question 01: Distribution of charges
 
+How would you describe the distribution of charges?  Is the data
+multi-modal? Do you believe it roughly follows the log-normal
+distribution? An eye-ball assessment is fine. I am not asking for a
+formal statistical test.
+
 Links:
 - [Multimodal Distribution](https://en.wikipedia.org/wiki/Multimodal_distribution)
 - [Log-normal_Distribution](https://en.wikipedia.org/wiki/Log-normal_distribution)
-
-How would you describe the distribution of charges?  This data is
-obviously skewed. Is the data multi-modal? Do you believe it roughly
-follows the log-normal distribution? An eye-ball assessment is fine. I
-am not asking for a formal statistical test.
 
 ``` 
 ggplot(Insurance, aes(charges)) +
@@ -60,11 +60,11 @@ ggplot(Insurance, aes(log(charges))) +
 
 ### Question 02: Measures of central tendency
 
+The red line on the above plots show the calculated average. Which
+average (mean) is a better measure of central tendency?
+
 Links:
 - https://simple.wikipedia.org/wiki/Central_tendency
-
-The red line on the above plots shows the calculated average. Which
-average (mean) is a better measure of central tendency?
 
 Hint: You do not need any additional code for this question. Just look
 at the graphs.
@@ -98,39 +98,41 @@ and females. To do this, you will need to use the dplyr commands
 standard deviation is `sd()`.
 
 - Write the code in the Insurance.R file.
-- In Canvas, please  enter the average charge for males.
+- In Canvas, enter the average charges for males.
 
 ### Question 05: Average Log Charges
 
 This is just like question 3, but applied to a different column.
 
 - Write the code in the Insurance.R file.
-- In Canvas, please  enter the average charge for males.
+- In Canvas, enter the average log_charges for males.
 
 
 ### Question 06:
 
-Links:
-- [Coefficient of variation](https://en.wikipedia.org/wiki/Coefficient_of_variation)
-
-Obviously, the average of log_charge is different than the average
-charge. Now, let's discuss the differences in standard deviation.
+The average of log_charges is different than the average charge. Now,
+let's discuss the differences in standard deviation. One way to do so
+is to use the coefficient of variation.
 
 Calculate the coefficient of variation for charges and log_charges.
-Anytime you are compariing groups where the sd is a high proportion of
+Anytime you are comparing groups where the sd is a high proportion of
 the mean, you have the opportunity for misleading results.  Note: This
 happens frequently.
 
+Links:
+- [Coefficient of variation](https://en.wikipedia.org/wiki/Coefficient_of_variation)
+
+
 - Write the code in the Insurance.R file.
 
-Question 07: Student's T-Test
+
+### Question 07: Student's T-Test
 
 Links:
 
 - [Student's T Test](https://en.wikipedia.org/wiki/Student%27s_t-test)
 
-We haven't done this yet in class, so I'm going to give you the
-code. The t-test is a classic test used for comparing the average of
+The t-test is a classic test used for comparing the average of
 two groups. But, this data violates a key assumption of the
 t-test. The charges data is not even a little normalized.
 
@@ -140,10 +142,10 @@ t-test. The charges data is not even a little normalized.
 ?t.test 
 ```
 
-We are using the formular interface to define the t-test. You can read
+We are using the formula interface to define the t-test. You can read
 the `charges~sex` as `charges as a function of sex`. In other words,
 does the average `charges` vary across `sex` in a statistically
-meaningful way?
+significant way?
 
 ```
 ## Run a t-test on the original data.
@@ -190,10 +192,14 @@ plot.
 
 ### Question 09: Charges as a function of bmi and smoker status.
 
-Create a linear regression, like we did in the previous question. The
-x-axis should be bmi, the y-axis shoud be charges, and color should be
-smoker status.
+Create a linear regression via ggplot, like we did in the previous
+question. The x-axis should be bmi, the y-axis should be charges, and
+color should be smoker status.
 
 
 - In Canvas, please discuss what you see here.
 
+### Question 10: Upload Insurance.R
+
+When you are done, please save your work in RStudio and upload your
+updated/improved copy of Insurance.R.
