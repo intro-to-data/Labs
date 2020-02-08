@@ -13,6 +13,8 @@ old and young adults are usually healthy (poor habits have not yet
 caught up with you) and thus inexpensive. Older, sicker members are
 generally more expensive to insure.
 
+![](https://imgs.xkcd.com/comics/insurance.png)
+
 Using RStudio, create a new folder/project called `Insurance`. We will
 use this project and data some next week during our lecture, so don't
 lose it. Download the <a
@@ -20,11 +22,12 @@ href="https://raw.githubusercontent.com/intro-to-data/Data/master/insurance.csv"
 download>insurance.csv</a> dataset and save it in the root folder of
 the `Insurance` project.
 
-Run the first 20 lines of code in <a href="https://raw.githubusercontent.com/intro-to-data/Labs/master/Week%2004/Insurance.R" download>Insurance.R</a> to import your data. Because of the
-problems last week, I wrote a chunk of code which looks for the
-`insurance.csv` file and will return an error to you if it cannot see
-it. This will certainly help me help some of you who get stuck on this
-step.
+Run the first 20 lines of code in <a
+href="https://raw.githubusercontent.com/intro-to-data/Labs/master/Week%2004/Insurance.R"
+download>Insurance.R</a> to import your data. Because of the problems
+last week, I wrote a chunk of code which looks for the `insurance.csv`
+file and will return an error to you if it cannot see it. This will
+certainly help me help some of you who get stuck on this step.
 
 Be sure to run lines 28-31, or the demo code will not run. I
 have included a fair amount of demo data in this lab because I want
