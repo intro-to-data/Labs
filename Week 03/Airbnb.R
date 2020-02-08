@@ -12,7 +12,11 @@ data_file <- "./new-york-city-airbnb-open-data.zip"
 
 
 ## DATA ========================================================================
-Airbnb <- read_csv(data_file)
+if (file.exists(data_file)){
+    Airbnb <- read_csv(data_file)
+} else {
+    stop("The data file is not in your current working directory.")
+}
 
 ## The str() command is a convenient way to look at your data. This command
 ## scales to wide data sets better than the head() command does. In addition to
