@@ -192,3 +192,8 @@ ggplot(Insurance, aes(bmi, charges, color = smoker)) +
     geom_smooth(method = lm)
 
 ## In Canvas, please discuss what you see here.
+
+
+## Question 10: Upload Insurance.R
+##
+## There's nothing to do here. Upload your .R file.
