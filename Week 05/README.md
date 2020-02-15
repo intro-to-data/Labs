@@ -31,7 +31,7 @@ lab.
 
 ## LAB
 
-### Task 01: Create a project called NYCFlights13
+### Task 01: CREATE A PROJECT CALLED NYCFlights13
 
 - In RStudio, create a new project called NYCFlights13 and switch to
   this project.
@@ -39,7 +39,7 @@ lab.
 
 
 
-### Task 02: Create a new script called Lab05.R
+### Task 02: CREATE A NEW SCRIPT CALLED Lab05.R
 
 - In RStudio, create a new R Script called Lab05.R. This is the file
   you will submit on canvas when you complete the lab.
@@ -53,7 +53,7 @@ lab.
 
 
 
-## Task 02: Create a new script called Lab05.R
+## Task 02: CREATE A NEW SCRIPT CALLED Lab05.R
 library(tidyverse)
 library(nycflights13)
 
@@ -68,7 +68,7 @@ want to see the code in your R script so I know you ran it.
 
 
 
-### Task 03: Primary Keys (Planes)
+### Task 03: PRIMARY KEYS (Planes)
 
 - A primary key is the column (sometimes columns) which uniquely
   identify an observation in that table. For example, in the `planes`
@@ -77,7 +77,7 @@ want to see the code in your R script so I know you ran it.
 - Copy/paste the following code chunks into your R Script.
 
 ``` R
-## Task 03: Primary Keys (Planes)
+## Task 03: PRIMARY KEYS (Planes)
 
 ## How many rows of data are in planes?
 rows_planes <- planes %>% nrow()
@@ -136,7 +136,7 @@ want to see the code in your R script so I know you ran it.
 
 
 
-### Task 04: Primary Keys (Airports)
+### Task 04: PRIMARY KEYS (Airports)
 
 - Figure out which column in the `airports` table is the primary
   key. Feel free to re-use the code from Task 02 to help you.
@@ -161,7 +161,7 @@ want to see the code in your R script so I know you ran it.
 - Copy/paste the following code chunk into your R script.
 
 ``` R
-## Task 04: Primary Keys (Airports)
+## Task 04: PRIMARY KEYS (Airports)
 
 ## Your code here!
 ```
@@ -180,7 +180,7 @@ want to see the code in your R script so I know you ran it.
 
 
 
-### Task 05: Foreign Keys
+### Task 05: FOREIGN KEYS
 
 - A foreign key is a column in a table that "maps" to a primary key in
   another table. While a primary key _must_ be unique, a foreign key
@@ -190,6 +190,7 @@ want to see the code in your R script so I know you ran it.
 - In planes, `tailnum` _N807AW_ has exactly one entry.
 
 ``` R
+## Task 05: FOREGIN KEYS
 planes %>% filter(tailnum == "N807AW")
 ```
 
@@ -218,9 +219,13 @@ For nycflights13:
 
 - flights connects to planes via a single variable, tailnum.
 - flights connects to airports in two ways: via the origin and dest variables.
-- flights connects to weather via origin (the location), and year, month, day and hour (the time).
+- flights connects to weather via origin (the location), and year,
+  month, day and hour (the time).
 
-- Based on what you can see in the ERD above, what column(s) are used to connect `flights` to `airlines`? In other words, what is the foreign key in `flights`?
+- Based on what you can see in the ERD above, what column(s) are used
+  to connect `flights` to `airlines`? In other words, what is the
+  foreign key in `flights`? You do not need to write any R code to
+  complete this task.
 
  - air_time
  - arr_delay
@@ -247,7 +252,7 @@ For nycflights13:
 ### Task 07: INNER JOIN
  
  - Based on your answer above, write an inner join between `flights` and airlines.
- - Copy 
+- Copy/paste the following code chunk to your R script.
  
  ``` R
  ## Task 07: INNER JOIN
@@ -259,7 +264,8 @@ For nycflights13:
 flights %>% inner_join(airlines, by = "")
  ```
 
-There isn't anything you need to put into Canvas for this task.
+Once you have completed the code in your R script, you are done with
+this task. There aren't any Canvas questions based on this task.
 
 
 ### Task 08: MOST COMMON CARRIER
@@ -276,6 +282,8 @@ There isn't anything you need to put into Canvas for this task.
 
 ## Your code here!
 ```
+
+What is the most common carrier in our data? Our choices are:
 
 - AirTran Airways Corporation
 - Alaska Airlines Inc.
@@ -294,7 +302,7 @@ There isn't anything you need to put into Canvas for this task.
 - US Airways Inc.
 - Virgin America
 
-### Task 09: Most Common Carrrier IN JUNE
+### Task 09: MOST COMMON CARRRIER IN JUNE
 
 - June is the sixth month of the year.
 - Alter your code from Task 08, to filter down flights that happened
@@ -313,7 +321,7 @@ There isn't anything you need to put into Canvas for this task.
 ```
 
 Once you have completed the code, go to Canvas to answer the question:
-_How many flight did Envoy Air have in June?_
+_How many flights did Envoy Air have in June?_
 
 ### Task 10: MOST COMMON DESTINATION
 
@@ -338,6 +346,10 @@ flights %>%
     inner_join(airports, by = c("dest" = "faa"))
 ```
 
+Once you have completed the code, go to Canvas and answer the
+question: _What is the most common destination?_
+
+
 
 ### Task 11: MOST COMMON DESTINATION (EASTERN TIME ZONE)
 
@@ -353,9 +365,15 @@ flights %>%
 ## Your code here!
 ```
 
-Does this work if you apply the filter BEFORE the `inner_join`? Do you
-understand why?
+Once you have finished your code, go to Canvas and answer the
+question: _What is the most common destination in the eastern time
+zone?_
+
+For further consideration - Does this work if you apply the filter
+BEFORE the `inner_join`? Do you understand why?
+
+
 
 ### THANKS
 
-That completes this weeks lab. I hope this was helpful.
+That completes this week's lab. I hope this was helpful.
