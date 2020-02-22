@@ -160,7 +160,7 @@ ggplot(data = iris, mapping = aes(x = Sepal.Width, y = Sepal.Length, color = Spe
     facet_wrap(~Species)
 ```
 
-![](README_files/figure-markdown_github/unnamed-chunk-1-1.png)
+<img src="README_files/figure-markdown_github/unnamed-chunk-1-1.png" style="display: block; margin: auto;" />
 
 Now that you’ve done this a few times, I want to re-visit what all of
 this code is ACTUALLY doing. We will ignore `data(iris)` in the analysis
@@ -184,7 +184,7 @@ produce that single plot, we needed three commands:
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">ggplot()</td>
-<td style="text-align: left;">Identifies the data source, assigns values to the X and Y axis, and color.</td>
+<td style="text-align: left;">Creates the ggplot object (our canvas), identifies the data source, assigns values to the X and Y axes, and tells ggplot how to assign colors.</td>
 <td style="text-align: center;"><code>+</code></td>
 </tr>
 <tr class="even">

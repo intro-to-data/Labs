@@ -155,7 +155,7 @@ several functions. For example, a scatter-plot showing the
 relationship between sepal width and length in the
 [iris](https://en.wikipedia.org/wiki/Iris_(plant)) looks like this:
 
-```{r}
+```{r fig.align="center"}
 data(iris)
 
 ggplot(data = iris, mapping = aes(x = Sepal.Width, y = Sepal.Length, color = Species)) +
@@ -171,7 +171,7 @@ going on. To produce that single plot, we needed three commands:
 
 | Command      | Description | Compositional Operator |
 |:-------------|:------------|:----------------------:|
-| ggplot() | Identifies the data source, assigns values to the X and Y axis, and color. | `+` |
+| ggplot() | Creates the ggplot object (our canvas), identifies the data source, assigns values to the X and Y axes, and tells ggplot how to assign colors. | `+` |
 | geom_point() | Tells ggplot to create a scatter plot. | `+` |
 | facet_wrap() | Stratifies the plot into three plots, one for each species. | `+` |
 
