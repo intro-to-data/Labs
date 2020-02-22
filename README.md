@@ -14,5 +14,6 @@ Data course. Each week will will have a folder with the full contents of the lab
 - [Week 03](https://github.com/intro-to-data/Labs/blob/master/Week%2003/README.md)
 - [Week 04](https://github.com/intro-to-data/Labs/blob/master/Week%2004/README.md)
 - [Week 05](https://github.com/intro-to-data/Labs/blob/master/Week%2005/README.md)
+- [Week 06](https://github.com/intro-to-data/Labs/blob/master/Week%2006/README.md)
 
 Does this all look a little incomplete? Additional labs will be added over time.
