@@ -125,6 +125,7 @@ Hint: Those last two links are really useful. Did I mention the
 mid-term is open-book?
 
 If this topic interests you, here are two links worth perusing:
+
 - [Available CRAN Packages By Name
 ](https://cran.r-project.org/web/packages/available_packages_by_name.html): These are all free and can be installed via `install.packages()`.
 - [Welcome to the Tidyverse](https://tidyverse.tidyverse.org/articles/paper.html): Hadley's rationale for why he wrote the Tidyverse.
@@ -167,6 +168,8 @@ plot showing the relationship between sepal width and length in the
 this:
 
 ```{r fig.align="center"}
+library(tidyverse)
+
 ## Load the data
 data(iris)
 iris <- as_tibble(iris)
@@ -181,7 +184,7 @@ Today, I want to re-visit what all of this code is ACTUALLY doing. We
 will focus onthe ggplot composition. To produce that single plot, we
 used three functions:
 
-| Command      | Description | Com positional Operator |
+| Command      | Description | Operator |
 |:-------------|:------------|:----------------------:|
 | `ggplot()` | Creates the plotting object (our canvas), identifies the data source, assigns values to the X and Y axes, and tells plotting how to assign colors. | `+` |
 | `geom_point()` | Tells plotting to create a scatter plot. | `+` |
@@ -196,7 +199,8 @@ terminates the functional composition.
 ggplot(data = iris, mapping = aes(x = Sepal.Width, y = Sepal.Length, color = Species))
 ```
 
-And, if you run this by itself, it is not interesting at all:
+And, if you run `geom_point()` by itself, the results is not
+interesting at all:
 
 ```{r}
 geom_point()
@@ -221,13 +225,13 @@ iris %>%
 We can see Virginica has the longest average petal length. Now, let's
 break this down like we did for ggplot:
 
-| Command      | Description | Compositional Operator |
+| Command      | Description | Operator |
 | `iris` | Identifies the data set we want to act on. This is broadly similar to `ggplot(data = iris)`, but because we aren't drawing anything we don't need a new object, we just need to identify which object we want to act on. | `%>%` |
 | `group_by()` | Identifies which column(s) to group by. In this case, `Species`. | `%>%` |
 | `summarize()` | Returns the descriptive statistic. In this case, the mean petal length. |  |
 
-Again, individually, these commands are not very interesting. For
-example, if we just want to see our data, this works great.
+Individually, these commands are not very interesting. For example, if
+we just want to see our data, this works great.
 
 ```{r}
 iris
@@ -242,7 +246,7 @@ iris %>%
     group_by(Species)
 ```
 
-Do note that now, the returns show something they did not previously:
+Now, the returns show something (mildly) they did not previously:
 
 ```{r}
 # A tibble: 150 x 5
@@ -255,7 +259,8 @@ your plot. Do not use `+` to do functional composition for data
 transformations. In a dplyr composition, it is easier to think of each
 function as a member of a relay race. Each function needs to take the
 baton/data, and do something (run around the track). Then, when it is
-done, it hands the baton/data off to the next function.
+done, it hands the baton/data off to the next function. When doing
+data transformations, use `%>%` for the compositional operator.
 
 <center>
 
@@ -277,9 +282,8 @@ iris %>%
     summarize(AvgPetalLength = round(mean(Petal.Length),0))
 ```
 
-As you can see, our results are now rounded to the nearest
-centimeter. Let's break this down. In your mind, think of this working
-as follows:
+Our results are now rounded to the nearest centimeter. Let's break
+this down. In your mind, think of this working as follows:
 
 | Command      | Description |
 | `m <- mean(Petal.Length)` | Calculates the mean petal length, and assigns the value to the variable `m`. |
@@ -677,12 +681,12 @@ AlbanyBirths <- AlbanyBirths %>%
 ```{r eval = FALSE}
 ## Task 09: Which insurance company has the highest total number of LBW births?
 ggplot() +
-    geom_bar()
+    geom_col()
 ```
 
 ```{r echo = FALSE, eval = FALSE}
 ggplot(data = AlbanyBirths %>% filter(LBW == TRUE), aes(x = Insurance)) +
-    geom_bar()
+    geom_col()
 ```
 
 10. Is the average birth cost of LBW births higher than non-LBW births?

@@ -121,13 +121,14 @@ tidyverse is, itself, composed of a number of smaller packages such as:
 Hint: Those last two links are really useful. Did I mention the mid-term
 is open-book?
 
-If this topic interests you, here are two links worth perusing: -
-[Available CRAN Packages By
-Name](https://cran.r-project.org/web/packages/available_packages_by_name.html):
-These are all free and can be installed via `install.packages()`. -
-[Welcome to the
-Tidyverse](https://tidyverse.tidyverse.org/articles/paper.html):
-Hadley’s rationale for why he wrote the Tidyverse.
+If this topic interests you, here are two links worth perusing:
+
+-   [Available CRAN Packages By
+    Name](https://cran.r-project.org/web/packages/available_packages_by_name.html):
+    These are all free and can be installed via `install.packages()`.
+-   [Welcome to the
+    Tidyverse](https://tidyverse.tidyverse.org/articles/paper.html):
+    Hadley’s rationale for why he wrote the Tidyverse.
 
 Functional Composition
 ----------------------
@@ -166,6 +167,21 @@ plot showing the relationship between sepal width and length in the
 this:
 
 ``` r
+library(tidyverse)
+```
+
+    ## ── Attaching packages ────────────────────────────────── tidyverse 1.3.0 ──
+
+    ## ✔ ggplot2 3.2.1     ✔ purrr   0.3.3
+    ## ✔ tibble  2.1.3     ✔ dplyr   0.8.4
+    ## ✔ tidyr   1.0.2     ✔ stringr 1.4.0
+    ## ✔ readr   1.3.1     ✔ forcats 0.4.0
+
+    ## ── Conflicts ───────────────────────────────────── tidyverse_conflicts() ──
+    ## ✖ dplyr::filter() masks stats::filter()
+    ## ✖ dplyr::lag()    masks stats::lag()
+
+``` r
 ## Load the data
 data(iris)
 iris <- as_tibble(iris)
@@ -192,7 +208,7 @@ used three functions:
 <tr class="header">
 <th style="text-align: left;">Command</th>
 <th style="text-align: left;">Description</th>
-<th style="text-align: center;">Com positional Operator</th>
+<th style="text-align: center;">Operator</th>
 </tr>
 </thead>
 <tbody>
@@ -225,7 +241,8 @@ ggplot(data = iris, mapping = aes(x = Sepal.Width, y = Sepal.Length, color = Spe
 
 <img src="README_files/figure-markdown_github/unnamed-chunk-2-1.png" style="display: block; margin: auto;" />
 
-And, if you run this by itself, it is not interesting at all:
+And, if you run `geom_point()` by itself, the results is not interesting
+at all:
 
 ``` r
 geom_point()
@@ -261,7 +278,7 @@ iris %>%
 We can see Virginica has the longest average petal length. Now, let’s
 break this down like we did for ggplot:
 
-Command \| Description \| Compositional Operator \|  
+Command \| Description \| Operator \|  
 `iris` \| Identifies the data set we want to act on. This is broadly
 similar to `ggplot(data = iris)`, but because we aren’t drawing anything
 we don’t need a new object, we just need to identify which object we
@@ -271,8 +288,8 @@ want to act on. \| `%>%` \|
 `summarize()` \| Returns the descriptive statistic. In this case, the
 mean petal length. \| \|
 
-Again, individually, these commands are not very interesting. For
-example, if we just want to see our data, this works great.
+Individually, these commands are not very interesting. For example, if
+we just want to see our data, this works great.
 
 ``` r
 iris
@@ -318,7 +335,7 @@ iris %>%
     ## 10          4.9         3.1          1.5         0.1 setosa 
     ## # … with 140 more rows
 
-Do note that now, the returns show something they did not previously:
+Now, the returns show something (mildly) they did not previously:
 
 ``` r
 # A tibble: 150 x 5
@@ -331,7 +348,8 @@ your plot. Do not use `+` to do functional composition for data
 transformations. In a dplyr composition, it is easier to think of each
 function as a member of a relay race. Each function needs to take the
 baton/data, and do something (run around the track). Then, when it is
-done, it hands the baton/data off to the next function.
+done, it hands the baton/data off to the next function. When doing data
+transformations, use `%>%` for the compositional operator.
 
 <center>
 
@@ -360,8 +378,8 @@ iris %>%
     ## 2 versicolor              4
     ## 3 virginica               6
 
-As you can see, our results are now rounded to the nearest centimeter.
-Let’s break this down. In your mind, think of this working as follows:
+Our results are now rounded to the nearest centimeter. Let’s break this
+down. In your mind, think of this working as follows:
 
 Command \| Description \|  
 `m <- mean(Petal.Length)` \| Calculates the mean petal length, and
@@ -735,7 +753,7 @@ AlbanyBirths <- AlbanyBirths %>%
 ``` r
 ## Task 09: Which insurance company has the highest total number of LBW births?
 ggplot() +
-    geom_bar()
+    geom_col()
 ```
 
 1.  Is the average birth cost of LBW births higher than non-LBW births?
