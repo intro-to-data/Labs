@@ -135,13 +135,12 @@ Playlists %>%
     ## 4 TV Shows       2
 
 According to this, there are two playlists each for “Audiobooks”,
-“Movies”, and “Music”. Each of these playlist names has a duplicate, but
-no name is duped more than twice. Fortunately, `PlaylistId` is never
-duped.
+“Movies”, and “Music”, and “TV Shows”. Each of these playlist names has
+a duplicate, but no name is duped more than twice. Fortunately,
+`PlaylistId` is never duped.
 
 ``` r
 ## Task 01. Where are my audiobook playlists?
-
 Playlists %>%
     group_by(PlaylistId) %>%
     count() %>%
@@ -173,7 +172,8 @@ Playlists %>%
 But, the code returns *NOTHING*. What happened? To help us understand,
 it might help to look at the following code chunk. The ONLY thing that
 differs between the two code chunks is that I replaced `inner_join()`
-with `left_join()`.
+with `left_join()`. And the difference between the two types of joins
+*is* important.
 
 ``` r
 Playlists %>%
@@ -221,11 +221,16 @@ Playlists %>%
     ## 1          4 Audiobooks      NA
     ## 2          6 Audiobooks      NA
 
+``` r
+## Now, hopefully, that little bit of code above makes sense. I don't
+## want you to incorrectly count the numer of rows returned.
+```
+
 Remember, you can always run just part of a code chunk. If you get
-unexpected returns, you can (must) debug your code by taking the
+unexpected returns, you can (should) debug your code by taking the
 complexity out of it step-by-step to see where things go wrong. In this
 case, the answer isn’t wrong, merely unexpected and inconvenient. If you
-can’t and find tracks in the Audiobook playlist, how are you going to
+can’t and find tracks in the “Audiobook” playlist, how are you going to
 answer a bunch of questions about it?
 
 This leads us to the epistemological question, can you have a playlist
@@ -241,8 +246,8 @@ there.
 Task 02. Which playlist name has the most tracks?
 -------------------------------------------------
 
-Using the code from Task 01, which playlist has the most tracks? You can
-use `inner_join()` for this task.
+Adapting the code from Task 01, which playlist has the most tracks? You
+can use `inner_join()` for this task.
 
 ``` r
 ## Task 02: Which playlist name has the most tracks?
@@ -265,10 +270,7 @@ analysts never know what they are talking about.
 **Hint:** The function, `foo()` is not a function. It is a placeholder
 for all the *awesome* you are about to do.
 
-\`\`\`{r echo = FALSE, eval = FALSE} \#\# Task 03: How many tracks in
-Music, where PlaylistID == 8? Playlists %&gt;% foo()
-
-\`\`\`
+`{r eval = FALSE} ## Task 03: How many tracks in Music, where PlaylistID == 8? Playlists %>%     foo()`
 
 `{r echo = FALSE, eval = FALSE} ## Task 03: How many tracks in Music, where PlaylistID == 8? Playlists %>%     filter(PlaylistId == 8) %>%     inner_join(PlaylistsTracks, by="PlaylistId") %>%     group_by(PlaylistId, Name) %>%     count()`
 
