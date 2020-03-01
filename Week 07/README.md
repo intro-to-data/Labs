@@ -1,7 +1,7 @@
 Preamble
 ========
 
-This lab has two large goals:
+This lab has two goals:
 
 1.  Help you go further with your understanding of relational data.
 2.  Prepare for the mid-term.
@@ -78,13 +78,14 @@ Playlists %>% arrange(Name) %>% head()
 You should get back the first six rows of the `Playlists` table, which
 should include exciting playlist names such as:
 
-PlaylistId \| Name \|  
-5 \| 90’s Music \|  
-4 \| Audiobooks \|  
-6 \| Audiobooks \|  
-11 \| Brazillian Music \|  
-12 \| Classical \|  
-13 \| Classical 101 - Deep Cuts \|
+| PlaylistId | Name                      |
+|:----------:|:--------------------------|
+|      5     | 90’s Music                |
+|      4     | Audiobooks                |
+|      6     | Audiobooks                |
+|     11     | Brazillian Music          |
+|     12     | Classical                 |
+|     13     | Classical 101 - Deep Cuts |
 
 I confess, I don’t understand everyone’s fascination with audiobooks.
 There’s a book, which you should read. Why would you want to pay to let

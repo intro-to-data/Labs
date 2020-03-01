@@ -7,7 +7,7 @@ output:
 
 # Preamble
 
-This lab has two large goals:
+This lab has two goals:
 
 1. Help you go further with your understanding of relational data.
 2. Prepare for the mid-term.
@@ -65,6 +65,7 @@ You should get back the first six rows of the `Playlists` table, which
 should include exciting playlist names such as:
 
 | PlaylistId | Name |
+|:----------:|:-----|
 | 5 | 90's Music |
 | 4 | Audiobooks |
 | 6 | Audiobooks |
