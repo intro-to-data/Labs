@@ -12,6 +12,8 @@ you a series of “research questions”. I will then help you break down
 the steps you will need to complete in order to answer these research
 questions and provide some code stubs to get you started.
 
+![](https://imgs.xkcd.com/comics/substitute.png)
+
 Lab
 ===
 
@@ -88,20 +90,22 @@ should include exciting playlist names such as:
 |     13     | Classical 101 - Deep Cuts |
 
 I confess, I don’t understand everyone’s fascination with audiobooks.
-There’s a book, which you should read. Why would you want to pay to let
-someone read it to you? But, I digress. It is worth pointing out that
-there are two playlists with the same name. In this case, “Audiobooks”.
-But note how they have different PlaylistId numbers. This *is*
-important:
+There’s a book, which you should read. If it isn’t good enough to read,
+why would you pay someone to read it to you?
 
-Column Name \| Column Use \|  
-PlaylistId \| Primary Key \|  
-Name \| Information/Data \|
+It is worth pointing out there are two playlists with the same name. In
+this case, “Audiobooks”. But note how they have different PlaylistId
+numbers. This *is* important:
 
-A primary key MUST be unique. It cannot have a duplicate (dupe). The
-play list names can dupe (although it will probably cause at least some
-confusion for the humans) but for the database, `PlaylistId` “4” and “6”
-*are* different.
+| Column Name | Column Use       |
+|:------------|:-----------------|
+| PlaylistId  | Primary Key      |
+| Name        | Information/Data |
+
+A primary key *MUST* be unique. It cannot have a duplicate (dupe). The
+playlist names can dupe (although doing so will cause some confusion
+among the humans) but for the database, `PlaylistId` “4” and “6” *are*
+unique.
 
 Task 01. Where are my Audiobook playlists?
 ------------------------------------------
@@ -224,19 +228,21 @@ case, the answer isn’t wrong, merely unexpected and inconvenient. If you
 can’t and find tracks in the Audiobook playlist, how are you going to
 answer a bunch of questions about it?
 
-:-)
+This leads us to the epistemological question, can you have a playlist
+with no tracks? Can you?
 
 If you still aren’t sure what is going on, I recommend reviewing
 [mutating
 joins](https://r4ds.had.co.nz/relational-data.html#mutating-joins) from
 our text. When you think you are ready, go to canvas and see if you can
-get the right answer.
+get the right answer to the very important question waiting for you
+there.
 
 Task 02. Which playlist name has the most tracks?
 -------------------------------------------------
 
 Using the code from Task 01, which playlist has the most tracks? You can
-use an `inner_join()` for this task.
+use `inner_join()` for this task.
 
 ``` r
 ## Task 02: Which playlist name has the most tracks?
@@ -252,14 +258,31 @@ the Playlist named “Music” with `PlaylistId == 8`?
 
 **Hint:** Depending on how you wrote your code for Task 02, getting the
 right answer may seem unnecessarily hard. Remember, programming is the
-art of being painfully specific.
+art of being painfully specific. It is even more fun because human
+language is frequently vague and the people who write questions for
+analysts never know what they are talking about.
+
+**Hint:** The function, `foo()` is not a function. It is a placeholder
+for all the *awesome* you are about to do.
+
+\`\`\`{r echo = FALSE, eval = FALSE} \#\# Task 03: How many tracks in
+Music, where PlaylistID == 8? Playlists %&gt;% foo()
+
+\`\`\`
+
+`{r echo = FALSE, eval = FALSE} ## Task 03: How many tracks in Music, where PlaylistID == 8? Playlists %>%     filter(PlaylistId == 8) %>%     inner_join(PlaylistsTracks, by="PlaylistId") %>%     group_by(PlaylistId, Name) %>%     count()`
 
 Task 04: Media Type
 -------------------
 
 The table, `MediaTypes`, is a reference table. It maps `MediaTypeId` to
 a name of each media type. You can find this same column name in the
-`Tracks` table. This helps us answer two questions:
+`Tracks` table. A reference table differs from a table like `Customers`
+in that the values of a reference table are defined by our
+internal/external business logic. It is a reference for a value. A table
+like `Customers` houses actual data.
+
+The `MediaTypes` table helps us answer two questions:
 
 1.  Which media type has the most tracks?
 2.  What is the total play length of this media type (in milliseconds)?
@@ -276,7 +299,7 @@ same name, which they would after the join. You could rename the `Name`
 column in one table, or let R handle this for you. If you let R handle
 this, the column `Name` from `Tracks` will become `Name.x` and `Name` in
 `MediaTypes` will become `Name.y`. I let R rename the columns for me,
-but doing so has implications for how I had to write my `group_by()`
+but doing so has implications for how I should write my `group_by()`
 command.
 
 Because it may make it easier, the code stub I am providing below will
