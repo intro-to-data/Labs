@@ -270,9 +270,11 @@ analysts never know what they are talking about.
 **Hint:** The function, `foo()` is not a function. It is a placeholder
 for all the *awesome* you are about to do.
 
-`{r eval = FALSE} ## Task 03: How many tracks in Music, where PlaylistID == 8? Playlists %>%     foo()`
-
-`{r echo = FALSE, eval = FALSE} ## Task 03: How many tracks in Music, where PlaylistID == 8? Playlists %>%     filter(PlaylistId == 8) %>%     inner_join(PlaylistsTracks, by="PlaylistId") %>%     group_by(PlaylistId, Name) %>%     count()`
+``` r
+## Task 03: How many tracks in Music, where PlaylistID == 8?
+Playlists %>%
+    foo()
+```
 
 Task 04: Media Type
 -------------------
