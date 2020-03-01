@@ -6,3 +6,6 @@ README.html
 *.xlsx
 *.csv
 *.feather
+*.db
+*.sqlite
+*.rdata
