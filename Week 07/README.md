@@ -307,12 +307,13 @@ but doing so has implications for how I should write my `group_by()`
 command.
 
 Because it may make it easier, the code stub I am providing below will
-create a new table called TrackMediaTypes. Complete the join and create
-`TrackMediaTypes`. Then perform any grouping and filtering you need on
-`TackMediaTypes`. Remember, you can use RStudio to view your data, which
-may make it easier to get the column names for the `group_by()`.
+create a new table called `TrackMediaTypes`. Complete the join and
+create `TrackMediaTypes`. Then perform any grouping and filtering you
+need on `TackMediaTypes`. Remember, you can use RStudio to view your
+data, which may make it easier to get the column names for the
+`group_by()`. Spelling/capitalization matters!
 
-Little steps make complex things easier!
+**Hint:** Little steps make complex things easier!
 
 ``` r
 ## Task 04: Media Type
@@ -349,7 +350,6 @@ new table for several tasks below.
 
 ``` r
 ## Task 05: Who is the best customer?
-
 CustomerInvoices <- 
     Customers %>%
     inner_join()
@@ -425,7 +425,6 @@ function. I did give you a hint.
 
 ``` r
 ## Task 07: Graphing Invoice Value by Country
-## 
 ggplot() +
     geom_foo() +
     theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = .25))
