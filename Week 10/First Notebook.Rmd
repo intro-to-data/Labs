@@ -85,7 +85,7 @@ Top Rigt;
   you can hide the code, force it to not run, etc.
 - The button in the middle, which is hard to describe, will run ALL preceding 
   code chunks. Remember, these documents run in a single session.
-- The green arrow pointing to the right will run the current code chunk. This is
+- The green arrow pointing to the right  will run the current code chunk. This is
   the one you will use most frequently.
 
 There are more buttons on the bottom right of the code chunk. If you hover your 
