@@ -7,7 +7,7 @@ output: html_notebook
 
 This is your first R Markdown file. I encourage you to spend some time with it and learn a bit more about how this works. If you would like to learn more about R Markdown, there is an entire section dedicated to it in our book here: [R4DS: R Markdown](https://r4ds.had.co.nz/r-markdown.html). R Markdown is a type of [literate programming](https://en.wikipedia.org/wiki/Literate_programming) where human code (English, in this case) and computer code (R, in this case) are mixed together. This particular type of R Markdown file can be compared to a "lab notebook", but you can use the same formatting ideas to create [presentations](https://bookdown.org/yihui/rmarkdown/slidy-presentation.html), [dashboards](https://rmarkdown.rstudio.com/flexdashboard/index.html), and [formal reports (PDF files)](https://bookdown.org/yihui/rmarkdown/pdf-document.html). To see how this notebook looks when compiled to HTML, hit the preview button above: 
 
-![Preview Screenshot](https://raw.githubusercontent.com/intro-to-data/Labs/master/Week%2010/preview.png)
+![The Preview Button Likes To Hide](https://raw.githubusercontent.com/intro-to-data/Labs/master/Week%2010/preview.png)
 
 There are several big advantages of a literate programming model over the traditional approach to creating reports:
 
@@ -73,6 +73,23 @@ Obviously, these are strongly correlated. The faster the car is going, the more
 distance it needs to stop itself. Added bonus, now we our report includes both 
 out thoughts/words AND the graph without any further effort. If the data changes
 in the future we can easily re-run the analysis and adjust our conclusions.
+
+The code chunks all run in a single session in R and they are run IN ORDER! Thus, if you create a variable on in the code chunk above and refer to it later, it will be fine. But, if you rearrange the code chunks, things might break!
+
+To run a single code chunk in the current session, you can use the keyboard shortcut (Ctrl+Shift+Enter). Or, you can use the little green arrow in the corner of the code chunk:
+
+![]![So Many Buttons](https://raw.githubusercontent.com/intro-to-data/Labs/master/Week%2010/code_chunk.png)
+
+Top Rigt;
+- The gear shaped icon will allow you to alter code chunk options. For example, 
+  you can hide the code, force it to not run, etc.
+- The button in the middle, which is hard to describe, will run ALL preceding 
+  code chunks. Remember, these documents run in a single session.
+- The green arrow pointing to the right will run the current code chunk. This is
+  the one you will use most frequently.
+
+There are more buttons on the bottom right of the code chunk. If you hover your 
+mouse over them, you will see what they can do. 
 
 Use a computer to automate your life and be a winner!
 ![](https://media3.giphy.com/media/xmxGoENM1V81q/giphy.gif?cid=ecf05e47c5ff1ea151355146c060e0a974e87fff24ee0586&rid=giphy.gif)
