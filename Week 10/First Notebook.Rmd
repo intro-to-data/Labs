@@ -1,0 +1,99 @@
+---
+title: "Example Notebook"
+output: html_notebook
+---
+
+# About
+
+This is your first R Markdown file. I encourage you to spend some time with it and learn a bit more about how this works. If you would like to learn more about R Markdown, there is an entire section dedicated to it in our book here: [R4DS: R Markdown](https://r4ds.had.co.nz/r-markdown.html). R Markdown is a type of [literate programming](https://en.wikipedia.org/wiki/Literate_programming) where human code (English, in this case) and computer code (R, in this case) are mixed together. This particular type of R Markdown file can be compared to a "lab notebook", but you can use the same formatting ideas to create [presentations](https://bookdown.org/yihui/rmarkdown/slidy-presentation.html), [dashboards](https://rmarkdown.rstudio.com/flexdashboard/index.html), and [formal reports (PDF files)](https://bookdown.org/yihui/rmarkdown/pdf-document.html). To see how this notebook looks when compiled to HTML, hit the preview button above: 
+
+[TODO Preview Screenshot]()
+
+There are several big advantages of a literate programming model over the traditional approach to creating reports:
+
+1. The code and analysis are in the same place and can be reproduced quickly. You no longer have to spend 10 minutes rerunning the script and then two hours playing copy/paste with the data, formatting the graphics, etc. I'll be completely honest, Microsoft Word is a terrible tool for doing science/statistics and Excel is only marginally better.
+2. The code is self documenting. Other analysts can better understand how the code/analysis and conclusions/thoughts fit together. This is fantastic for clear communication of complex ideas, peer review, etc. 
+3. This format is astoundingly easy to program in, thus we avoid the famous programmer circle of time suck:
+
+![](https://imgs.xkcd.com/comics/is_it_worth_the_time.png)
+
+# Two Comparative Examples
+
+## R Script
+
+To date, we have only used R scripts. These are files that end in `.R`. In these files, computer code is primary and human code is secondary. For example, an R script might look like this.
+
+```{r eval=FALSE}
+## My_script.R
+
+## This is a comment. It is writtin in "human code" with sentences, verbs, 
+## nouns, etc. The computer code, below, loads the tidyverse, loads our dataset,
+## and creates a plot showing the relationship between the speed of a car and 
+## the distance required to stop it.
+
+library(tidyverse)
+data(cars)
+cars %>% 
+    ggplot(aes(speed, dist)) + 
+    geom_point() + 
+    geom_smooth(method="lm")
+
+## Obviously, these are strongly correlated. 
+## The faster the car is going, the more distance it needs to stop itself.
+
+## But you have done this before, for labs and tests. To include this
+## plot in a document/report, we would first export it as a PNG file
+## and then import it into the report.
+```
+
+And, I'll be completely honest, I'm busy:
+![](https://media.giphy.com/media/10PcMWwtZSYk2k/giphy.gif)
+
+Yes, that is a giphy embedded in this notebook. Now you see the power.
+Be thankful I didn't Rick Roll you again. I could have.
+
+## R Markdown Notebook
+
+This is a comment. It is writtin in "human code" with sentences, verbs, nouns,
+etc. The computer code, below, loads the tidyverse, loads our dataset, and 
+creates a plot showing the relationship between the speed of a car and the
+distance required to stop it.
+
+```{r}
+
+library(tidyverse)
+data(cars)
+cars %>% 
+    ggplot(aes(speed, dist)) + 
+    geom_point() + 
+    geom_smooth(method="lm")
+```
+
+Obviously, these are strongly correlated. The faster the car is going, the more 
+distance it needs to stop itself. Added bonus, now we our report includes both 
+out thoughts/words AND the graph without any further effort. If the data changes
+in the future we can easily re-run the analysis and adjust our conclusions.
+
+Use a computer to automate your life and be a winner!
+![](https://media3.giphy.com/media/xmxGoENM1V81q/giphy.gif?cid=ecf05e47c5ff1ea151355146c060e0a974e87fff24ee0586&rid=giphy.gif)
+
+## But how can you tell the difference?
+
+Good question! How can we tell the difference between these two files?
+
+- After looing at these a while, the differences become obvious. But at first,
+  it can be confusing.
+- R scipts end in `.R` and R Markdown files end in `.Rmd`.
+- To insert a code chunk in a R Markdown file, you start a line with three 
+  backticks, `` ```{r} ``, which are hiding to the left of the `1` 
+  button on your keyboard. To end a code chunk, start another line with just 
+  three backticks, `` ``` ``. There is no grammatical reason to ever use three 
+  backticks together, which is why this pattern is used to bracket a code chunk.
+- They can be easily added to your document using the insert button in the R 
+  Markdown window OR the keyboard shortcut `Ctrl+Alt+i`.
+- Pro Tip: Backticks are NOT single quotes. Do not live a lie.
+- **Warning:** Inserting these backticks into an R Script `.R` will cause errors!
+
+
+Now, let's look at a more serious example where we download some data and do a 
+real analysis.
