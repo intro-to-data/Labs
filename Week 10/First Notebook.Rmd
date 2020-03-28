@@ -17,6 +17,19 @@ There are several big advantages of a literate programming model over the tradit
 
 ![](https://imgs.xkcd.com/comics/is_it_worth_the_time.png)
 
+```{r echo=TRUE, message=FALSE, warning=FALSE, include=FALSE}
+## The first code chunk in a R Markdown script is always referred to as "setup".
+## You should use this code chunk to load packages, initiate variables, and
+## load your data.
+
+library(tidyverse)
+data(cars)
+
+SaySomething <- "This is something I want to say."
+
+```
+
+
 # Two Comparative Examples
 
 ## R Script
@@ -30,9 +43,6 @@ To date, we have only used R scripts. These are files that end in `.R`. In these
 ## nouns, etc. The computer code, below, loads the tidyverse, loads our dataset,
 ## and creates a plot showing the relationship between the speed of a car and 
 ## the distance required to stop it.
-
-library(tidyverse)
-data(cars)
 cars %>% 
     ggplot(aes(speed, dist)) + 
     geom_point() + 
@@ -54,15 +64,12 @@ Be thankful I didn't Rick Roll you again. I could have.
 
 ## R Markdown Notebook
 
-This is a comment. It is writtin in "human code" with sentences, verbs, nouns,
-etc. The computer code, below, loads the tidyverse, loads our dataset, and 
+This is a comment. It is written in "human code" with sentences, verbs, nouns,
+etc. The computer code, below, loads the `tidyverse`, loads our data set, and 
 creates a plot showing the relationship between the speed of a car and the
 distance required to stop it.
 
 ```{r}
-
-library(tidyverse)
-data(cars)
 cars %>% 
     ggplot(aes(speed, dist)) + 
     geom_point() + 
@@ -80,7 +87,7 @@ To run a single code chunk in the current session, you can use the keyboard shor
 
 ![]![So Many Buttons](https://raw.githubusercontent.com/intro-to-data/Labs/master/Week%2010/code_chunk.png)
 
-Top Rigt;
+Top Right:
 - The gear shaped icon will allow you to alter code chunk options. For example, 
   you can hide the code, force it to not run, etc.
 - The button in the middle, which is hard to describe, will run ALL preceding 
@@ -98,19 +105,23 @@ Use a computer to automate your life and be a winner!
 
 Good question! How can we tell the difference between these two files?
 
-- After looing at these a while, the differences become obvious. But at first,
+- After looking at these a while, the differences become obvious. But at first,
   it can be confusing.
-- R scipts end in `.R` and R Markdown files end in `.Rmd`.
+- R scripts end in `.R` and R Markdown files end in `.Rmd`.
 - To insert a code chunk in a R Markdown file, you start a line with three 
-  backticks, `` ```{r} ``, which are hiding to the left of the `1` 
+  back ticks, `` ```{r} ``, which are hiding to the left of the `1` 
   button on your keyboard. To end a code chunk, start another line with just 
-  three backticks, `` ``` ``. There is no grammatical reason to ever use three 
-  backticks together, which is why this pattern is used to bracket a code chunk.
+  three back ticks, `` ``` ``. There is no grammatical reason to ever use three 
+  back ticks together, which is why this pattern is used to bracket a code chunk.
 - They can be easily added to your document using the insert button in the R 
   Markdown window OR the keyboard shortcut `Ctrl+Alt+i`.
-- Pro Tip: Backticks are NOT single quotes. Do not live a lie.
-- **Warning:** Inserting these backticks into an R Script `.R` will cause errors!
+- Pro Tip: Back ticks are NOT single quotes. Do not live a lie.
+- **Warning:** Inserting these back ticks into an R Script `.R` will cause errors!
 
 
-Now, let's look at a more serious example where we download some data and do a 
-real analysis.
+You can even have code in-line with your comments. For example, what do I want to
+say: 
+
+`r SaySomething `
+
+Which simply prints out whatever I put into the variable `SaySomething`.
