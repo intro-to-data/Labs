@@ -7,7 +7,7 @@ output: html_notebook
 
 This is your first R Markdown file. I encourage you to spend some time with it and learn a bit more about how this works. If you would like to learn more about R Markdown, there is an entire section dedicated to it in our book here: [R4DS: R Markdown](https://r4ds.had.co.nz/r-markdown.html). R Markdown is a type of [literate programming](https://en.wikipedia.org/wiki/Literate_programming) where human code (English, in this case) and computer code (R, in this case) are mixed together. This particular type of R Markdown file can be compared to a "lab notebook", but you can use the same formatting ideas to create [presentations](https://bookdown.org/yihui/rmarkdown/slidy-presentation.html), [dashboards](https://rmarkdown.rstudio.com/flexdashboard/index.html), and [formal reports (PDF files)](https://bookdown.org/yihui/rmarkdown/pdf-document.html). To see how this notebook looks when compiled to HTML, hit the preview button above: 
 
-[TODO Preview Screenshot]()
+![Preview Screenshot](https://raw.githubusercontent.com/intro-to-data/Labs/master/Week%2010/preview.png)
 
 There are several big advantages of a literate programming model over the traditional approach to creating reports:
 
