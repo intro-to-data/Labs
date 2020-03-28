@@ -5,36 +5,45 @@ output: html_notebook
 
 # About
 
-This is your first R Markdown file. I encourage you to spend some time with it and learn a bit more about how this works. If you would like to learn more about R Markdown, there is an entire section dedicated to it in our book here: [R4DS: R Markdown](https://r4ds.had.co.nz/r-markdown.html). R Markdown is a type of [literate programming](https://en.wikipedia.org/wiki/Literate_programming) where human code (English, in this case) and computer code (R, in this case) are mixed together. This particular type of R Markdown file can be compared to a "lab notebook", but you can use the same formatting ideas to create [presentations](https://bookdown.org/yihui/rmarkdown/slidy-presentation.html), [dashboards](https://rmarkdown.rstudio.com/flexdashboard/index.html), and [formal reports (PDF files)](https://bookdown.org/yihui/rmarkdown/pdf-document.html). To see how this notebook looks when compiled to HTML, hit the preview button above: 
+This is your first R Markdown file. I encourage you to spend some time with it 
+and learn a bit more about how this works. If you would like to learn more about
+R Markdown, there is an entire section dedicated to it in our book here:
+[R4DS: R Markdown](https://r4ds.had.co.nz/r-markdown.html). R Markdown is a type
+of [literate programming](https://en.wikipedia.org/wiki/Literate_programming) 
+where human code (English, in this case) and computer code (R, in this case) are
+mixed together. This particular type of R Markdown file can be compared to a 
+"lab notebook", but you can also produce [presentations](https://bookdown.org/yihui/rmarkdown/slidy-presentation.html), [dashboards](https://rmarkdown.rstudio.com/flexdashboard/index.html), 
+and [formal reports (PDF files)](https://bookdown.org/yihui/rmarkdown/pdf-document.html).
+To see how this notebook looks when compiled to HTML, hit the preview button 
+above: 
 
 ![The Preview Button Likes To Hide](https://raw.githubusercontent.com/intro-to-data/Labs/master/Week%2010/preview.png)
 
-There are several big advantages of a literate programming model over the traditional approach to creating reports:
+There are several big advantages of a literate programming model over the 
+traditional approach to creating reports:
 
-1. The code and analysis are in the same place and can be reproduced quickly. You no longer have to spend 10 minutes rerunning the script and then two hours playing copy/paste with the data, formatting the graphics, etc. I'll be completely honest, Microsoft Word is a terrible tool for doing science/statistics and Excel is only marginally better.
-2. The code is self documenting. Other analysts can better understand how the code/analysis and conclusions/thoughts fit together. This is fantastic for clear communication of complex ideas, peer review, etc. 
-3. This format is astoundingly easy to program in, thus we avoid the famous programmer circle of time suck:
+1. The code and analysis are in the same place and can be reproduced quickly. 
+   You no longer have to spend 10 minutes rerunning the script and then two 
+   hours playing copy/paste with the data, formatting the graphics, etc. I'll be
+   completely honest, Microsoft Word is a terrible tool for doing 
+   science/statistics and Excel is only marginally better.
+2. The code is self documenting. Other analysts can better understand how the 
+   code/analysis and conclusions/thoughts fit together. This is fantastic for 
+   clear communication of complex ideas, peer review, etc. 
+3. This format is astoundingly easy to program in, thus we avoid the famous 
+   programmer circle of time suck:
 
 ![](https://imgs.xkcd.com/comics/is_it_worth_the_time.png)
 
-```{r echo=TRUE, message=FALSE, warning=FALSE, include=FALSE}
-## The first code chunk in a R Markdown script is always referred to as "setup".
-## You should use this code chunk to load packages, initiate variables, and
-## load your data.
-
-library(tidyverse)
-data(cars)
-
-SaySomething <- "This is something I want to say."
-
-```
 
 
 # Two Comparative Examples
 
 ## R Script
 
-To date, we have only used R scripts. These are files that end in `.R`. In these files, computer code is primary and human code is secondary. For example, an R script might look like this.
+To date, we have only used R scripts. These are files that end in `.R`. In 
+these files, computer code is primary and human code is secondary. For example,
+an R script might look like this.
 
 ```{r eval=FALSE}
 ## My_script.R
@@ -43,6 +52,9 @@ To date, we have only used R scripts. These are files that end in `.R`. In these
 ## nouns, etc. The computer code, below, loads the tidyverse, loads our dataset,
 ## and creates a plot showing the relationship between the speed of a car and 
 ## the distance required to stop it.
+library(tidyverse)
+data(cars)
+
 cars %>% 
     ggplot(aes(speed, dist)) + 
     geom_point() + 
@@ -59,10 +71,22 @@ cars %>%
 And, I'll be completely honest, I'm busy:
 ![](https://media.giphy.com/media/10PcMWwtZSYk2k/giphy.gif)
 
-Yes, that is a giphy embedded in this notebook. Now you see the power.
-Be thankful I didn't Rick Roll you again. I could have.
+Yes, that is a giphy embedded in this notebook. Behold the power.
+Be thankful I didn't Rick Roll you again.
 
 ## R Markdown Notebook
+
+```{r echo=TRUE, message=FALSE, warning=FALSE}
+## The first code chunk in a R Markdown script is always referred to as "setup".
+## You should use this code chunk to load packages, initiate variables, and
+## load your data.
+
+library(tidyverse)
+data(cars)
+
+SaySomething <- "This is something I want to say."
+
+```
 
 This is a comment. It is written in "human code" with sentences, verbs, nouns,
 etc. The computer code, below, loads the `tidyverse`, loads our data set, and 
@@ -77,17 +101,22 @@ cars %>%
 ```
 
 Obviously, these are strongly correlated. The faster the car is going, the more 
-distance it needs to stop itself. Added bonus, now we our report includes both 
-out thoughts/words AND the graph without any further effort. If the data changes
+distance it needs to stop itself. Added bonus, now our report includes both 
+our thoughts/words AND the graph without any further effort. If the data changes
 in the future we can easily re-run the analysis and adjust our conclusions.
 
-The code chunks all run in a single session in R and they are run IN ORDER! Thus, if you create a variable on in the code chunk above and refer to it later, it will be fine. But, if you rearrange the code chunks, things might break!
+The code chunks all run in a single session in R and they are run IN ORDER! Thus,
+if you create a variable in the code chunk above and refer to it later, it will
+be fine. But, if you rearrange the code chunks, things might break!
 
-To run a single code chunk in the current session, you can use the keyboard shortcut (Ctrl+Shift+Enter). Or, you can use the little green arrow in the corner of the code chunk:
+To run a single code chunk in the current session, you can use the keyboard 
+shortcut (Ctrl+Shift+Enter). Or, you can use the little green arrow in the 
+corner of the code chunk:
 
-![]![So Many Buttons](https://raw.githubusercontent.com/intro-to-data/Labs/master/Week%2010/code_chunk.png)
+![So Many Buttons](https://raw.githubusercontent.com/intro-to-data/Labs/master/Week%2010/code_chunk.png)
 
 Top Right:
+
 - The gear shaped icon will allow you to alter code chunk options. For example, 
   you can hide the code, force it to not run, etc.
 - The button in the middle, which is hard to describe, will run ALL preceding 
@@ -95,17 +124,20 @@ Top Right:
 - The green arrow pointing to the right  will run the current code chunk. This is
   the one you will use most frequently.
 
-There are more buttons on the bottom right of the code chunk. If you hover your 
-mouse over them, you will see what they can do. 
+There are more buttons on the bottom right of the code chunk. Hover your mouse 
+over them, to see what they can do. 
 
-Use a computer to automate your life and be a winner!
+#### Use a computer to automate your life and be a winner!
+
 ![](https://media3.giphy.com/media/xmxGoENM1V81q/giphy.gif?cid=ecf05e47c5ff1ea151355146c060e0a974e87fff24ee0586&rid=giphy.gif)
 
 ## But how can you tell the difference?
 
-Good question! How can we tell the difference between these two files?
+Good question! How can we tell the difference between an R script and a R 
+Markdown file? RStudio will help us, but we should be able to see the difference 
+ourselves.
 
-- After looking at these a while, the differences become obvious. But at first,
+- After looking at these a while, the differences do become obvious. At first,
   it can be confusing.
 - R scripts end in `.R` and R Markdown files end in `.Rmd`.
 - To insert a code chunk in a R Markdown file, you start a line with three 
