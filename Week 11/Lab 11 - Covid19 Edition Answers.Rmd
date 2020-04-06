@@ -45,14 +45,17 @@ which_county <- "Albany"
 
 ## Task 01: Filter and create region
 ##
-## This dplyr statement should: 1. Import the data defined in
-## data_url_counties.  2. Filter on which_state so we only keep one
-## state's data.  3. Create a new column, region, which should be a
-## lower case version of the state column. We did this in class. Feel
-## free to look at that code.  4. Create a new column, subregion,
-## which should be a lower case verision of the county column.
+## This dplyr statement should: 
+## 1. Import the data defined in data_url_counties.  
+## 2. Filter on which_state (keep only NYS data)
+## 3. Create a new column, region, which should be a
+##    lower case version of the state column. We did this in class.
+##    Feel free to look at that code.  4. Create a new column, subregion,
+##    which should be a lower case verision of the county column.
 ##
 ## Pro Tip: Be sure to you mutate to create new columns.
+##
+## Copy/Paste your code to Canvas when done.
 
 ## YOUR CODE HERE!
 CountyData <-
@@ -134,6 +137,8 @@ CountyData <-
 ##
 ## Pro Tip: You are going to need to use the assignment operator (<-)
 ## to complete this task. This will let you create a new dataframe.
+##
+## In Canvas, tell me what the MaxWeek for fips 36001 is.
 
 ## YOUR CODE HERE!
 MaxWeek <-
@@ -141,13 +146,15 @@ MaxWeek <-
     group_by(fips) %>%
     summarize(MaxDate = max(week_of))
 
-## Create a seconda dataframe called MaxCountyDeaths.
+## Create a second dataframe called MaxCountyDeaths.
 ## In it, calculate the max number of cases in each county. This is
 ## similar to what you just did. Group by fips. Summarize the maximum
 ## number of cases. Call this column MaxDeaths.
 ##
 ## Pro Tip: You are going to need to use the assignment operator (<-)
 ## to complete this task. This will let you create a new dataframe.
+## 
+## In Canvas, tell me the MaxDeaths value for fips 36001.
 
 ## YOUR CODE HERE!
 MaxCountyDeaths <-
@@ -163,6 +170,8 @@ MaxCountyDeaths <-
 ##
 ## Pro Tip: You are going to need to use the assignment operator (<-)
 ## to complete this task. This will let you create a new dataframe.
+##
+## In Canvas, tell me how many counties are in TooManyDeaths (how many rows)?
 
 ## YOUR CODE HERE!
 TooManyDeaths <-
@@ -173,8 +182,9 @@ TooManyDeaths <-
 ## Task 04: Get Population Data
 ##
 ## Below, is some code that will import estimates of New York State
-## county populations.  Use an inner_join() to join Population and
-## CountyData. I recommend joining on fips.
+## county populations. Use an inner_join() to join Population and
+## CountyData. I recommend joining on fips. You want to create a new
+## CountyDeaths dataframe that ALSO contains the population data.
 ##
 ##Pro Tip: Any time you have a standard identification, like a FIPS
 ## code, use it for your joins. You are less likely to spend an hour
@@ -183,6 +193,8 @@ TooManyDeaths <-
 ##
 ## Pro Tip: You are going to need to use the assignment operator (<-)
 ## to complete this task. This will let you create a new dataframe.
+##
+## In Canvas, tell me the estimated 2019 population of Albany County.
 
 ## This is what I'm giving you. It will create Population.
 Population <-
@@ -191,6 +203,7 @@ Population <-
     select(fips = "FIPS Code", population = Population)
 
 ## YOUR CODE HERE!
+## You need to do an inner_join here.
 CountyData <-
     CountyData %>%
     inner_join(Population, by="fips")
@@ -278,6 +291,7 @@ else.
   either create a temporary dataframe OR use the piping operators to
   do this all in one step. Your choice.
 - Pro Tip: Have you thought about joining on fips?
+- Upload this to Canvas.
 
 ```{r} 
 ## YOUR CODE HERE!
@@ -400,6 +414,7 @@ ggplot(CountyMapData, aes(long, lat, group = group))+
   CountyData or it won't work.
 - Then, draw a new map showing the distribution of this new column,
   like what we did above.
+- Upload this map to Canvas.
 
 ```{r}
 ## YOUR CODE HERE!
@@ -423,8 +438,6 @@ Hopefully, you can see that although the distribution of raw case
 counts is very biased to NYC, the distribution of prop is much wider
 and it makes all of look quite a bit different.
 
-Upload this image into Canvas.
-
 # Task 10: Is our work reproducible?
 
 - Assuming the New York Times leaves the data on their website, is this lab reproducible next year?
@@ -433,9 +446,11 @@ Upload this image into Canvas.
 - Do you think this sort of scientific workflow would help us address the reproducibility crisis?
     - I obviously think it can. However, feel free to disagree with me
       if that's how you feel. I want you to think about this, not
-      fawningly agree with me to get a good grade.
+      blindly agree with me to get a good grade.
 
 # Task 11: Upload Your R Script
+
+Yeah. Just do what the title says. Upload the `Lab 11 - Codid19 Edition.Rmd` file.
 
 # Task 12: Was this lab useful?
 
@@ -443,17 +458,7 @@ Was this lab useful? This is an "essay" question, but I want your
 honest thoughts/opinions. Any reasonable answer will receive full
 credit.
 
-# Task 13: Lucky!
-
-Hit the preview button to be sure your code all works (RStudio will throw an 
-error if you have any problems). Once that is done, upload the file 
-`County Grain Coronavirus Cases.Rmd`. Do not upload the .Rproj file. That is
-something else and is not useful to me from a grading standpoint.
-
-See how by default the code chunks are hidden but can be expanded/shown with 
-the click of a button.
-
-# Task 14: Extra Credit
+# Task 13: Extra Credit
 
 If you can figure out how to apply all of these graphs to NYS counties
 with fewer than 100 coronavirus deaths, I'll give you half a
