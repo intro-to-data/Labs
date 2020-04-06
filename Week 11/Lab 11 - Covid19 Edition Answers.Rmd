@@ -1,0 +1,472 @@
+---
+title: "Covid19 Edition"
+output: html_notebook
+---
+
+# Task 01, Task 02, Task 03, Task 04
+
+- The first code-chunk in a R Markdown document is called "setup".  I
+  usually place this before the content of my notebook starts. In it, I
+  load packages, data, set options, etc. which I will need throughout
+  the document. 
+- In this case, I've included some commentary to help you understand
+  what is going on.
+- Remember, 80% of time spent on most data analysis projects is spent dealing
+  with the data. Also, everyone has agreed to make up that 80% number.
+    - We spend soooo much time downloading, munging, joinng, etc.
+- This code chunk contains:
+    - Task 01
+    - Task 02
+    - Task 03
+    - Task 04
+
+```{r setup}
+## INIT ========================================================================
+library(knitr)
+library(lubridate) ## Yes, this is a real package, and yes, you will need to install it.
+library(maps)
+library(plotly) ## You are going to need to install this too. Sooo much installation.
+library(tidyverse)
+
+## County Grain Data --------------------------------------
+## In class we worked with the state-grain data. Today, we
+## will focus on the counties in a specific state.
+
+## DATA ========================================================================
+## Where to get our Covid 19 Data
+data_url_counties <- "https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties.csv"
+
+## Defines the state we are going to focus on.
+## PLEASE NOTICE HOW THIS IS CAPITALIZED!
+which_state <- "New York"
+which_county <- "Albany"
+
+
+
+## Task 01: Filter and create region
+##
+## This dplyr statement should: 1. Import the data defined in
+## data_url_counties.  2. Filter on which_state so we only keep one
+## state's data.  3. Create a new column, region, which should be a
+## lower case version of the state column. We did this in class. Feel
+## free to look at that code.  4. Create a new column, subregion,
+## which should be a lower case verision of the county column.
+##
+## Pro Tip: Be sure to you mutate to create new columns.
+
+## YOUR CODE HERE!
+CountyData <-
+    read_csv(data_url_counties) %>%
+    filter(state == which_state) %>%
+    mutate(region = tolower(state),
+           subregion = tolower(county))
+
+
+
+## Task 02: Run this and think about what it is doing.
+##
+## I think I may have mentionned that most of an analysis project is
+## data management. Well, here's a whole bunch of data management. You
+## owe me a slice of pizza. I have left comments to help you
+## understand what/why I am doin. Please take a few minutes to look this over.
+## If you have questions, I'm happy to answer them.
+CountyData <-
+    CountyData %>%
+    ## Removes stump rows. Weirdly, New York County was not given a row. Dunno why.
+    filter(county != "Bronx", county != "Kings", county != "Richmond", county != "Queens")  %>%
+    ## This is a little cruel. It exagerates the severity of the situation in Queens.
+    ## It also creates a new date column called week_of.
+    mutate(county = case_when(county == "New York City"~"Queens",TRUE~county),
+           fips   = case_when(county == "Queens"~"36081",TRUE~fips),
+           week_of = ceiling_date(date, unit="weeks")) %>%
+    ## This puts the columns into a nice order.
+    select(state,region,county,subregion,fips,week_of,cases,deaths) %>%
+    ## These next two steps remove date, and replace it with week_of.
+    ## This helps to reduce the noise in the data because of accidents in how
+    ## or when data was reported to the state.
+    group_by(state,region,county,subregion,fips,week_of) %>%
+    summarize(cases = sum(cases),
+              deaths = sum(deaths)) %>%
+    arrange(state,region,county,subregion,fips,week_of) %>%
+    group_by(state,region,county,subregion,fips) %>%
+    ## This creates a set of "new cases"/"new deaths" columns.
+    ## We will explore this more when we discuss exponential growth.
+    ## And, it creates columns for each numeric column that is the
+    ## log of that column. Whew. That's a lot to absorb.
+    mutate(log_cases  = log(cases),
+           log_deaths = log(deaths),
+           new_cases  = cases - lag(cases, default = first(cases)),
+           new_deaths = deaths - lag(deaths, default = first(deaths)),
+           log_new_cases = log(new_cases),
+           log_new_deaths = log(new_deaths)) %>%
+    ## This just prevents us from struggling with it later.
+    ungroup() %>%
+    ## This is dumb. This should be a numeric. So, there. Now it is.
+    mutate(fips = as.numeric(fips)) %>%
+    ## Have you noticed I am very particular about how my data is arranged?
+    select(state,
+           region,
+           county,
+           subregion,
+           fips,
+           week_of,
+           cases,log_cases,new_cases,log_new_cases,
+           deaths,log_deaths,new_deaths,log_new_deaths) %>%
+    ## We cannot have incomplete weeks in our daa, because it could falsely
+    ## look like a drop in the exponential pattern. This removes incomplete
+    ## weeks.
+    filter(week_of <= today())
+    
+
+## PLEASE note that we have replaced the "date" column with "week_of" which is the last day of the week (Saturday).
+## Look at the value produced by the log of 0. Why is this?
+## Aren't you glad I didn't make you write that?
+
+
+
+## Task 03: Max Dates
+##
+## Create a dataframe called MaxWeek.
+## In it, calculate the max date, per county, found in this data set.
+## This is similar to what we did in class. You will need this
+## later. Group by fips. Summarize on the max date. Call this column
+## MaxDate
+##
+## Pro Tip: You are going to need to use the assignment operator (<-)
+## to complete this task. This will let you create a new dataframe.
+
+## YOUR CODE HERE!
+MaxWeek <-
+    CountyData %>%
+    group_by(fips) %>%
+    summarize(MaxDate = max(week_of))
+
+## Create a seconda dataframe called MaxCountyDeaths.
+## In it, calculate the max number of cases in each county. This is
+## similar to what you just did. Group by fips. Summarize the maximum
+## number of cases. Call this column MaxDeaths.
+##
+## Pro Tip: You are going to need to use the assignment operator (<-)
+## to complete this task. This will let you create a new dataframe.
+
+## YOUR CODE HERE!
+MaxCountyDeaths <-
+    CountyData %>%
+    group_by(fips) %>%
+    summarize(MaxDeaths = max(deaths))
+
+## Create a datafrane called TooManyDeaths
+## Create one more dataframe, based on CountyData which includes only
+## counties which have had achieved 100 or more deaths. We will use
+## this as a filter below. Other counties are important, but this
+## makes the graphs easier to read.
+##
+## Pro Tip: You are going to need to use the assignment operator (<-)
+## to complete this task. This will let you create a new dataframe.
+
+## YOUR CODE HERE!
+TooManyDeaths <-
+    MaxCountyDeaths %>%
+    filter(MaxDeaths >= 100)
+
+
+## Task 04: Get Population Data
+##
+## Below, is some code that will import estimates of New York State
+## county populations.  Use an inner_join() to join Population and
+## CountyData. I recommend joining on fips.
+##
+##Pro Tip: Any time you have a standard identification, like a FIPS
+## code, use it for your joins. You are less likely to spend an hour
+## fighting naming convention differences, capitalization differences,
+## etc. Trust me on this one.
+##
+## Pro Tip: You are going to need to use the assignment operator (<-)
+## to complete this task. This will let you create a new dataframe.
+
+## This is what I'm giving you. It will create Population.
+Population <-
+    read_csv("https://data.ny.gov/api/views/krt9-ym2k/rows.csv?accessType=DOWNLOAD&sorting=true") %>%
+    filter(Year == 2019) %>%
+    select(fips = "FIPS Code", population = Population)
+
+## YOUR CODE HERE!
+CountyData <-
+    CountyData %>%
+    inner_join(Population, by="fips")
+
+
+
+## When you are done with these tasks, re-run the entire code
+## code-chunk to make sure it works. To do so, hit the green
+## button. The code below will return an error if anything is missing
+## or deemed incorrect.
+
+if(!exists("MaxWeek") &
+   !exists("maxweek") &
+   !exists("max_week") &
+   !exists("Max_Week")) stop("I don't see MaxWeek")
+
+if(!exists("CountyData")) stop("I don't see CountyData.")
+if(!exists("MaxCountyDeaths")) stop("I don't see MaxCountyDeaths.")
+if(!exists("TooManyDeaths")) stop("I don't see TooManyDeaths.")
+
+if(!"region" %in% names(CountyData)) stop("I don't see a region column in CountyData.")
+if(!"subregion" %in% names(CountyData)) stop("I don't see a subregion column in CountyData.")
+if(!"population" %in% names(CountyData)) stop("I don't see a population column in CountyData.")
+
+## Yeah - It took us nearly 200 lines of code just to get this thing started. Whee data.
+## Let's go do something interesting.
+```
+
+# About This Lab/Notebook
+
+I hope this lab will be useful to you. I hope it helps you
+better understand the news you see every day.
+
+Questions/Answers:
+
+- **Will you receive a grade for this?** Yes, of course. But, if you need help,
+  reach out to me.
+- **What else should I do with this?** I hope the labs we have completed to
+  date may be of help to you at some hypothetical point in the future. In
+  contrast, I hope this lab is useful to you in the coming days and
+  weeks as we face the challenge presented  by the coronavirus together.
+
+## Lab Goals
+
+- You will work on a real, changing data set.
+- You will use the county-grain Covid19 data to assess the status of
+  the outbreak here in New York State.
+- Honestly, this should connect what we have been doing/learning in
+  class and show you how these are genuinely useful skills.
+- If this lab doesn't convince you these skills are useful, I give up. :-)
+
+## Review County Data:
+
+It is important to understand/inspect your data.
+
+- **Data Source:** [NYT Covid19 Data](https://github.com/nytimes/covid-19-data/blob/master/README.md)
+- **WARNING:** This analysis assigns all cases/deaths in New
+  York City to Queens. The raw data source assigns all coronavirus cases in 
+  the five boroughs to "New York City", which we cannot graph geographically.
+  And, because Queens has more cases than any other borough, this analysis
+  attributes all cases/deaths to that borough/county.
+   - We did this above in the setup chunk.
+- I suggest you review this data and seek to understand what is here,
+  the grain of the data, and look for any mistakes, etc.
+
+```{r echo=FALSE}
+CountyData
+```
+
+In class, we looked at cases. In tonight's lab, we will focus on
+deaths. Not because I am morbid (although I am) but because deaths
+are, sadly, a better measure of progress than total cases. Our testing
+efforts are so woefully incomplete that changes up/down in a specific
+county could say more about the availability of tests than anything
+else.
+
+# Plotting of Exponential Data!
+
+## Task 05: Plot "deaths" by "week_of"
+
+- This is similar to what we did in class.
+- X Axis: week_of, Y Axis: deaths, color = county
+- Include only those counties in TooManyDeaths. To do this, use the
+  dataframe TooManyDeaths as a filter via an inner_join. You can
+  either create a temporary dataframe OR use the piping operators to
+  do this all in one step. Your choice.
+- Pro Tip: Have you thought about joining on fips?
+
+```{r} 
+## YOUR CODE HERE!
+CountyData %>%
+    inner_join(TooManyDeaths, by="fips") %>%
+    ggplot(aes(week_of, deaths, color = county)) +
+    geom_point() +
+    geom_line()
+```
+
+Also, while the numbers for Queens are exaggerated because the include
+deaths for the other four burroughs as well, take a moment to
+appreciate the staggering scale of this epidemic. Labs rarely call for
+a moment of silence. This is an exception.
+
+
+
+## Task 06: What is the difference?
+
+Look at my code below. Here, I am filtering where deaths >= 100,
+rather than using an inner join. I am then producing the plot I
+expected you to write for the previous task. Explain to me how these
+two plots differ and why I prefer the plot you (hopefully) wrote over
+the plot below, which is terrible.
+
+```{r}
+## Look at the results here. Compare to what you did above.  How is
+## this graph different? Why do I not like this, even thought it is
+## easier to understand/read?
+CountyData %>%
+    filter(deaths >= 100) %>%
+    ggplot(aes(week_of, deaths, color = county)) +
+    geom_point() +
+    geom_line()
+```
+
+
+## Task 07: Which One Is Better
+
+I want us to compare the rate of change across counties. Can you
+explain to me why the second plot is better for comparing counties?
+
+### Actual Numbers Plot
+
+- X Axis: deaths, Y Axis: new_deaths, color = county, 
+- Include only those counties in Megadeaths.
+
+```{r} 
+CountyData %>%
+    inner_join(TooManyDeaths, by="fips") %>%
+    ggplot(aes(deaths, new_deaths, color = county)) +
+    geom_point() +
+    geom_line() +
+    ggtitle("New Deaths by Total Deaths")
+
+```
+
+### Log Numbers Plot
+
+- X Axis: deaths, Y Axis: new_deaths, color = county
+- Transform the X and Y axis to be log10, but show the actual numbers
+  for readability/interpretation.
+- Include only those counties in Megadeaths.
+
+```{r} 
+CountyData %>%
+    inner_join(TooManyDeaths, by="fips") %>%
+    ggplot(aes(deaths, new_deaths, color = county)) +
+    geom_point() +
+    geom_line() +
+    scale_x_log10() +
+    scale_y_log10()
+```
+
+Why is the second plot better for comparing different counties?  Think
+back to the video.
+
+# Maps!
+
+## Task 08: New York State
+
+Draw a State/County map of New York State. This is similar to what we
+did last week in class, but I'm adding the complexity of plotting the
+counties as well.
+
+Review this map and tell me what you think it is telling you in Canvas.
+
+```{r}
+
+## First, let's load some map data and look at it.
+## You only need to load this in once per sussion.
+StateMap <- map_data("state") %>% filter(region == "new york")
+CountyMap <- map_data("county") %>% filter(region == "new york")
+
+## Now let's build our data set.
+## See how we are re-using our MaxDates data?
+## And . . . . see how this data transformation stuff IS useful?
+## When doing REAL statistics.
+
+## This steop takes a minute.
+CountyMapData <- 
+    CountyData %>%
+    inner_join(MaxWeek, by = c("fips","week_of"="MaxDate")) %>%
+    inner_join(CountyMap, by = "subregion")
+
+ggplot(CountyMapData, aes(long, lat, group = group))+
+    geom_polygon(aes(fill = deaths), color = "white")+
+    theme_classic() +
+    ggtitle("Distribution of Deaths by Coronavirus (2020)")
+```
+
+## Task 09: Deaths Per 1000 County Residents
+
+- There is some auto-correlation between population size (of the
+  county) and the number of coronavirus cases there are. All else
+  being equal, larger counties will tend to have more deaths.
+- Add a column to CountyData called prop, for proportion. This should
+  be the number of deaths per 10,000 county residents.
+- Remember, you have to assign the output of your dplyr mutate to
+  CountyData or it won't work.
+- Then, draw a new map showing the distribution of this new column,
+  like what we did above.
+
+```{r}
+## YOUR CODE HERE!
+CountyData <-
+    CountyData %>%
+    mutate(prop = 10000*deaths/population)
+
+## This steop takes a minute.
+CountyMapData <- 
+    CountyData %>%
+    inner_join(MaxWeek, by = c("fips","week_of"="MaxDate")) %>%
+    inner_join(CountyMap, by = "subregion")
+
+ggplot(CountyMapData, aes(long, lat, group = group))+
+    geom_polygon(aes(fill = prop), color = "white")+
+    theme_classic() +
+    ggtitle("Distribution of Deaths by Coronavirus (2020)")
+```
+
+Hopefully, you can see that although the distribution of raw case
+counts is very biased to NYC, the distribution of prop is much wider
+and it makes all of look quite a bit different.
+
+Upload this image into Canvas.
+
+# Task 10: Is our work reproducible?
+
+- Assuming the New York Times leaves the data on their website, is this lab reproducible next year?
+- Is the code available for inspection?
+- Is the analysis connected to the code?
+- Do you think this sort of scientific workflow would help us address the reproducibility crisis?
+    - I obviously think it can. However, feel free to disagree with me
+      if that's how you feel. I want you to think about this, not
+      fawningly agree with me to get a good grade.
+
+# Task 11: Upload Your R Script
+
+# Task 12: Was this lab useful?
+
+Was this lab useful? This is an "essay" question, but I want your
+honest thoughts/opinions. Any reasonable answer will receive full
+credit.
+
+# Task 13: Lucky!
+
+Hit the preview button to be sure your code all works (RStudio will throw an 
+error if you have any problems). Once that is done, upload the file 
+`County Grain Coronavirus Cases.Rmd`. Do not upload the .Rproj file. That is
+something else and is not useful to me from a grading standpoint.
+
+See how by default the code chunks are hidden but can be expanded/shown with 
+the click of a button.
+
+# Task 14: Extra Credit
+
+If you can figure out how to apply all of these graphs to NYS counties
+with fewer than 100 coronavirus deaths, I'll give you half a
+letter-grade on your lowest non-exam grade in the class. If you can
+figure out how to run the code against another state, there are even
+more opportunities:
+
+- Figure out how to run everything except the population data
+  transformations/graph and I'll give you a full letter grade on your
+  lowest non-exam grade.
+- Figure out how to run the population transformations/graphs for that
+  state as well, and I'll just give you an A on your lowest non-exam
+  grade in the class.
+  
+This latter opportunity should be of interest to those of you with an
+incomplete item or two.

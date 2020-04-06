@@ -1,8 +1,6 @@
 ---
-title: "Coronavirus in NYS (or elsewhere)"
-output:
-  html_notebook:
-    code_folding: hide
+title: "Covid19 Edition"
+output: html_notebook
 ---
 
 # Task 01, Task 02, Task 03, Task 04
@@ -13,12 +11,14 @@ output:
   the document. 
 - In this case, I've included some commentary to help you understand
   what is going on.
-- Remember, 80% of most data analysis projects consistent of dealing
+- Remember, 80% of time spent on most data analysis projects is spent dealing
   with the data. Also, everyone has agreed to make up that 80% number.
+    - We spend soooo much time downloading, munging, joinng, etc.
 - This code chunk contains:
     - Task 01
     - Task 02
     - Task 03
+    - Task 04
 
 ```{r setup}
 ## INIT ========================================================================
@@ -55,12 +55,6 @@ which_county <- "Albany"
 ## Pro Tip: Be sure to you mutate to create new columns.
 
 ## YOUR CODE HERE!
-CountyData <-
-    read_csv(data_url_counties) %>%
-    filter(state == which_state) %>%
-    mutate(region = tolower(state),
-           subregion = tolower(county))
-
 
 
 ## Task 02: Run this and think about what it is doing.
@@ -136,10 +130,6 @@ CountyData <-
 ## to complete this task. This will let you create a new dataframe.
 
 ## YOUR CODE HERE!
-MaxWeek <-
-    CountyData %>%
-    group_by(fips) %>%
-    summarize(MaxDate = max(week_of))
 
 ## Create a seconda dataframe called MaxCountyDeaths.
 ## In it, calculate the max number of cases in each county. This is
@@ -150,10 +140,6 @@ MaxWeek <-
 ## to complete this task. This will let you create a new dataframe.
 
 ## YOUR CODE HERE!
-MaxCountyDeaths <-
-    CountyData %>%
-    group_by(fips) %>%
-    summarize(MaxDeaths = max(deaths))
 
 ## Create a datafrane called TooManyDeaths
 ## Create one more dataframe, based on CountyData which includes only
@@ -165,13 +151,10 @@ MaxCountyDeaths <-
 ## to complete this task. This will let you create a new dataframe.
 
 ## YOUR CODE HERE!
-TooManyDeaths <-
-    MaxCountyDeaths %>%
-    filter(MaxDeaths >= 100)
 
 
 ## Task 04: Get Population Data
-
+##
 ## Below, is some code that will import estimates of New York State
 ## county populations.  Use an inner_join() to join Population and
 ## CountyData. I recommend joining on fips.
@@ -191,9 +174,6 @@ Population <-
     select(fips = "FIPS Code", population = Population)
 
 ## YOUR CODE HERE!
-CountyData <-
-    CountyData %>%
-    inner_join(Population, by="fips")
 
 
 
@@ -221,43 +201,42 @@ if(!"population" %in% names(CountyData)) stop("I don't see a population column i
 
 # About This Lab/Notebook
 
-I hope this lab will be useful to you. In it, I hope to help you
-further understand the news you see every day.
+I hope this lab will be useful to you. I hope it helps you
+better understand the news you see every day.
 
 Questions/Answers:
 
-- Will you receive a grade for this? Yes, of course. But, if you need help, reach out to me. 
-- What else should I do with this? I hope the labs we have complete do
-  date may be of help you at some hypothetical point in the future. In
+- **Will you receive a grade for this?** Yes, of course. But, if you need help,
+  reach out to me.
+- **What else should I do with this?** I hope the labs we have completed to
+  date may be of help to you at some hypothetical point in the future. In
   contrast, I hope this lab is useful to you in the coming days and
-  weeks as we face the challenge presented to us by the Corona virus
-  together.
+  weeks as we face the challenge presented  by the coronavirus together.
 
 ## Lab Goals
 
 - You will work on a real, changing data set.
-- The answers you calculate may differ, somewhat, from what I am
-  calculating, because this data set continues to evolve daily.
 - You will use the county-grain Covid19 data to assess the status of
   the outbreak here in New York State.
 - Honestly, this should connect what we have been doing/learning in
   class and show you how these are genuinely useful skills.
-- If this lab doesn't convince you these skills are useful, I give up.
+- If this lab doesn't convince you these skills are useful, I give up. :-)
 
 ## Review County Data:
 
 It is important to understand/inspect your data.
 
-- Data Source: [NYT Covid19 Data](https://github.com/nytimes/covid-19-data/blob/master/README.md)
-- PLEASE be aware that this analysis assigns all cases/deaths in New
-  York City to Queens. The data source assigns all such cases to "New
-  York City", which we cannot graph geographically. And, because
-  Queens has more cases than any other borough, this analysis
+- **Data Source:** [NYT Covid19 Data](https://github.com/nytimes/covid-19-data/blob/master/README.md)
+- **WARNING:** This analysis assigns all cases/deaths in New
+  York City to Queens. The raw data source assigns all coronavirus cases in 
+  the five boroughs to "New York City", which we cannot graph geographically.
+  And, because Queens has more cases than any other borough, this analysis
   attributes all cases/deaths to that borough/county.
+   - We did this above in the setup chunk.
 - I suggest you review this data and seek to understand what is here,
   the grain of the data, and look for any mistakes, etc.
 
-```{r}
+```{r echo=FALSE}
 CountyData
 ```
 
@@ -268,7 +247,7 @@ efforts are so woefully incomplete that changes up/down in a specific
 county could say more about the availability of tests than anything
 else.
 
-# Plotting of exponential data!
+# Plotting of Exponential Data!
 
 ## Task 05: Plot "deaths" by "week_of"
 
@@ -282,11 +261,7 @@ else.
 
 ```{r} 
 ## YOUR CODE HERE!
-CountyData %>%
-    inner_join(TooManyDeaths, by="fips") %>%
-    ggplot(aes(week_of, deaths, color = county)) +
-    geom_point() +
-    geom_line()
+
 ```
 
 Also, while the numbers for Queens are exaggerated because the include
@@ -404,20 +379,7 @@ ggplot(CountyMapData, aes(long, lat, group = group))+
 
 ```{r}
 ## YOUR CODE HERE!
-CountyData <-
-    CountyData %>%
-    mutate(prop = 10000*deaths/population)
 
-## This steop takes a minute.
-CountyMapData <- 
-    CountyData %>%
-    inner_join(MaxWeek, by = c("fips","week_of"="MaxDate")) %>%
-    inner_join(CountyMap, by = "subregion")
-
-ggplot(CountyMapData, aes(long, lat, group = group))+
-    geom_polygon(aes(fill = prop), color = "white")+
-    theme_classic() +
-    ggtitle("Distribution of Deaths by Coronavirus (2020)")
 ```
 
 Hopefully, you can see that although the distribution of raw case
@@ -471,3 +433,4 @@ more opportunities:
   
 This latter opportunity should be of interest to those of you with an
 incomplete item or two.
+

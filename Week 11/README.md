@@ -1,4 +1,4 @@
-# READ ME
+# Covid19 Edition
 
 In this lab, you will work with your second notebook. A notebook is an
 interactive environment where you can analyze data for decision
@@ -65,5 +65,4 @@ COVID-19](https://www.youtube.com/watch?v=54XLXg4fYsc&feature=youtu.be)
 Unlike the previous video, this video is actually important. This
 week's lab won't make much sense with out it.
 
-
-
+[Lab 11 - Covid19 Edition!](https://github.com/intro-to-data/Labs/blob/master/Week%2011/.Rmd)
