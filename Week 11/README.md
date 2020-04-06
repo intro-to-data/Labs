@@ -56,7 +56,7 @@ with exact precision.
 Enjoy this rather silly video that goes right to the heart of the
 problem: [Can I have your data?](https://www.youtube.com/embed/66oNv_DJuPc)
 
-# Covid 19
+# Lab 11 - Covid 19 Edition!
 
 Please watch the following You Tube clip, which is an excellent
 explanation of some of the basic math behind our lab today: [How To
@@ -65,4 +65,4 @@ COVID-19](https://www.youtube.com/watch?v=54XLXg4fYsc&feature=youtu.be)
 Unlike the previous video, this video is actually important. This
 week's lab won't make much sense with out it.
 
-[Lab 11 - Covid19 Edition!](https://github.com/intro-to-data/Labs/blob/master/Week%2011/.Rmd)
+[Lab 11 - Covid19 Edition!](https://github.com/intro-to-data/Labs/blob/master/Week%2011/Lab%2011%20-%20Covid19%20Edition.Rmd)
