@@ -27,6 +27,7 @@ library(lubridate) ## Yes, this is a real package, and yes, you will need to ins
 library(maps)
 library(plotly) ## You are going to need to install this too. Sooo much installation.
 library(tidyverse)
+options(scipen=999)
 
 ## County Grain Data --------------------------------------
 ## In class we worked with the state-grain data. Today, we
@@ -71,7 +72,7 @@ CountyData <-
 ## I think I may have mentionned that most of an analysis project is
 ## data management. Well, here's a whole bunch of data management. You
 ## owe me a slice of pizza. I have left comments to help you
-## understand what/why I am doin. Please take a few minutes to look this over.
+## understand what/why I am doing. Please take a few minutes to look this over.
 ## If you have questions, I'm happy to answer them.
 CountyData <-
     CountyData %>%
@@ -88,24 +89,17 @@ CountyData <-
     ## This helps to reduce the noise in the data because of accidents in how
     ## or when data was reported to the state.
     group_by(state,region,county,subregion,fips,week_of) %>%
-    summarize(cases = sum(cases),
-              deaths = sum(deaths)) %>%
+    summarize(cases = last(cases),
+              deaths = last(deaths)) %>%
     arrange(state,region,county,subregion,fips,week_of) %>%
-    group_by(state,region,county,subregion,fips) %>%
-    ## This creates a set of "new cases"/"new deaths" columns.
-    ## We will explore this more when we discuss exponential growth.
-    ## And, it creates columns for each numeric column that is the
-    ## log of that column. Whew. That's a lot to absorb.
-    mutate(log_cases  = log(cases),
-           log_deaths = log(deaths),
-           new_cases  = cases - lag(cases, default = first(cases)),
-           new_deaths = deaths - lag(deaths, default = first(deaths)),
-           log_new_cases = log(new_cases),
-           log_new_deaths = log(new_deaths)) %>%
     ## This just prevents us from struggling with it later.
     ungroup() %>%
-    ## This is dumb. This should be a numeric. So, there. Now it is.
-    mutate(fips = as.numeric(fips)) %>%
+    ## This creates a set of "new cases"/"new deaths" columns.
+    ## We will explore this more when we discuss exponential growth.
+    ## And fips should have already been a numeric. Sheesh
+    mutate(new_cases  = cases - lag(cases, default = first(cases)),
+           new_deaths = deaths - lag(deaths, default = first(deaths)),
+           fips       = as.numeric(fips)) %>%
     ## Have you noticed I am very particular about how my data is arranged?
     select(state,
            region,
@@ -113,14 +107,13 @@ CountyData <-
            subregion,
            fips,
            week_of,
-           cases,log_cases,new_cases,log_new_cases,
-           deaths,log_deaths,new_deaths,log_new_deaths) %>%
+           cases,new_cases,
+           deaths,new_deaths) %>%
     ## We cannot have incomplete weeks in our daa, because it could falsely
     ## look like a drop in the exponential pattern. This removes incomplete
     ## weeks.
     filter(week_of <= today())
     
-
 ## PLEASE note that we have replaced the "date" column with "week_of" which is the last day of the week (Saturday).
 ## Look at the value produced by the log of 0. Why is this?
 ## Aren't you glad I didn't make you write that?
@@ -129,7 +122,7 @@ CountyData <-
 
 ## Task 03: Max Dates
 ##
-## Create a dataframe called MaxWeek.
+## Create a dataframe called MaxDate.
 ## In it, calculate the max date, per county, found in this data set.
 ## This is similar to what we did in class. You will need this
 ## later. Group by fips. Summarize on the max date. Call this column
@@ -138,45 +131,45 @@ CountyData <-
 ## Pro Tip: You are going to need to use the assignment operator (<-)
 ## to complete this task. This will let you create a new dataframe.
 ##
-## In Canvas, tell me what the MaxWeek for fips 36001 is.
+## In Canvas, tell me what the MaxDate for fips 36001 is.
 
 ## YOUR CODE HERE!
-MaxWeek <-
+MaxDate <-
     CountyData %>%
     group_by(fips) %>%
     summarize(MaxDate = max(week_of))
 
-## Create a second dataframe called MaxCountyDeaths.
+## Create a second dataframe called MaxCountyCases.
 ## In it, calculate the max number of cases in each county. This is
 ## similar to what you just did. Group by fips. Summarize the maximum
-## number of cases. Call this column MaxDeaths.
+## number of cases. Call this column MaxCases.
 ##
 ## Pro Tip: You are going to need to use the assignment operator (<-)
 ## to complete this task. This will let you create a new dataframe.
 ## 
-## In Canvas, tell me the MaxDeaths value for fips 36001.
+## In Canvas, tell me the MaxCases value for fips 36001.
 
 ## YOUR CODE HERE!
-MaxCountyDeaths <-
+MaxCountyCases <-
     CountyData %>%
     group_by(fips) %>%
-    summarize(MaxDeaths = max(deaths))
+    summarize(MaxCases = max(cases))
 
-## Create a datafrane called TooManyDeaths
+## Create a datafrane called Over1000
 ## Create one more dataframe, based on CountyData which includes only
-## counties which have had achieved 100 or more deaths. We will use
+## counties which have had 1000 or more cases. We will use
 ## this as a filter below. Other counties are important, but this
 ## makes the graphs easier to read.
 ##
 ## Pro Tip: You are going to need to use the assignment operator (<-)
 ## to complete this task. This will let you create a new dataframe.
 ##
-## In Canvas, tell me how many counties are in TooManyDeaths (how many rows)?
+## In Canvas, tell me how many counties are in Over1000 (how many rows)?
 
 ## YOUR CODE HERE!
-TooManyDeaths <-
-    MaxCountyDeaths %>%
-    filter(MaxDeaths >= 100)
+Over1000 <-
+    MaxCountyCases %>%
+    filter(MaxCases >= 1000)
 
 
 ## Task 04: Get Population Data
@@ -184,9 +177,9 @@ TooManyDeaths <-
 ## Below, is some code that will import estimates of New York State
 ## county populations. Use an inner_join() to join Population and
 ## CountyData. I recommend joining on fips. You want to create a new
-## CountyDeaths dataframe that ALSO contains the population data.
+## CountyCases dataframe that ALSO contains the population data.
 ##
-##Pro Tip: Any time you have a standard identification, like a FIPS
+## Pro Tip: Any time you have a standard identification, like a FIPS
 ## code, use it for your joins. You are less likely to spend an hour
 ## fighting naming convention differences, capitalization differences,
 ## etc. Trust me on this one.
@@ -207,29 +200,6 @@ Population <-
 CountyData <-
     CountyData %>%
     inner_join(Population, by="fips")
-
-
-
-## When you are done with these tasks, re-run the entire code
-## code-chunk to make sure it works. To do so, hit the green
-## button. The code below will return an error if anything is missing
-## or deemed incorrect.
-
-if(!exists("MaxWeek") &
-   !exists("maxweek") &
-   !exists("max_week") &
-   !exists("Max_Week")) stop("I don't see MaxWeek")
-
-if(!exists("CountyData")) stop("I don't see CountyData.")
-if(!exists("MaxCountyDeaths")) stop("I don't see MaxCountyDeaths.")
-if(!exists("TooManyDeaths")) stop("I don't see TooManyDeaths.")
-
-if(!"region" %in% names(CountyData)) stop("I don't see a region column in CountyData.")
-if(!"subregion" %in% names(CountyData)) stop("I don't see a subregion column in CountyData.")
-if(!"population" %in% names(CountyData)) stop("I don't see a population column in CountyData.")
-
-## Yeah - It took us nearly 200 lines of code just to get this thing started. Whee data.
-## Let's go do something interesting.
 ```
 
 # About This Lab/Notebook
@@ -273,21 +243,17 @@ It is important to understand/inspect your data.
 CountyData
 ```
 
-In class, we looked at cases. In tonight's lab, we will focus on
-deaths. Not because I am morbid (although I am) but because deaths
-are, sadly, a better measure of progress than total cases. Our testing
-efforts are so woefully incomplete that changes up/down in a specific
-county could say more about the availability of tests than anything
-else.
+We will continue to look at and focus on the growth and distribution of cases
+throughout New York State.
 
 # Plotting of Exponential Data!
 
-## Task 05: Plot "deaths" by "week_of"
+## Task 05: Plot "cases" by "week_of"
 
 - This is similar to what we did in class.
-- X Axis: week_of, Y Axis: deaths, color = county
-- Include only those counties in TooManyDeaths. To do this, use the
-  dataframe TooManyDeaths as a filter via an inner_join. You can
+- X Axis: week_of, Y Axis: cases, color = county
+- Include only those counties in Over1000. To do this, use the
+  dataframe Over1000 as a filter via an inner_join. You can
   either create a temporary dataframe OR use the piping operators to
   do this all in one step. Your choice.
 - Pro Tip: Have you thought about joining on fips?
@@ -296,14 +262,14 @@ else.
 ```{r} 
 ## YOUR CODE HERE!
 CountyData %>%
-    inner_join(TooManyDeaths, by="fips") %>%
-    ggplot(aes(week_of, deaths, color = county)) +
+    inner_join(Over1000, by="fips") %>%
+    ggplot(aes(week_of, cases, color = county)) +
     geom_point() +
     geom_line()
 ```
 
 Also, while the numbers for Queens are exaggerated because the include
-deaths for the other four burroughs as well, take a moment to
+cases for the other four burroughs as well, take a moment to
 appreciate the staggering scale of this epidemic. Labs rarely call for
 a moment of silence. This is an exception.
 
@@ -311,7 +277,7 @@ a moment of silence. This is an exception.
 
 ## Task 06: What is the difference?
 
-Look at my code below. Here, I am filtering where deaths >= 100,
+Look at my code below. Here, I am filtering where cases >= 1000,
 rather than using an inner join. I am then producing the plot I
 expected you to write for the previous task. Explain to me how these
 two plots differ and why I prefer the plot you (hopefully) wrote over
@@ -320,10 +286,11 @@ the plot below, which is terrible.
 ```{r}
 ## Look at the results here. Compare to what you did above.  How is
 ## this graph different? Why do I not like this, even thought it is
-## easier to understand/read?
+## easier to understand/read? In what way(s) is it incorrect or 
+## omit useful information?
 CountyData %>%
-    filter(deaths >= 100) %>%
-    ggplot(aes(week_of, deaths, color = county)) +
+    filter(cases >= 1000) %>%
+    ggplot(aes(week_of, cases, color = county)) +
     geom_point() +
     geom_line()
 ```
@@ -331,43 +298,45 @@ CountyData %>%
 
 ## Task 07: Which One Is Better
 
-I want us to compare the rate of change across counties. Can you
-explain to me why the second plot is better for comparing counties?
+I want us to compare the rate of change across counties. Below, I have 
+provided you with two plots. Can you explain to me why the second plot
+is better for comparing counties?
 
 ### Actual Numbers Plot
 
-- X Axis: deaths, Y Axis: new_deaths, color = county, 
-- Include only those counties in Megadeaths.
+- X Axis: cases, Y Axis: new_cases, color = county, 
+- Include only those counties in Over1000.
 
 ```{r} 
 CountyData %>%
-    inner_join(TooManyDeaths, by="fips") %>%
-    ggplot(aes(deaths, new_deaths, color = county)) +
+    inner_join(Over1000, by="fips") %>%
+    ggplot(aes(cases, new_cases, color = county)) +
     geom_point() +
     geom_line() +
-    ggtitle("New Deaths by Total Deaths")
+    ggtitle("New Cases by Current Cases")
 
 ```
 
 ### Log Numbers Plot
 
-- X Axis: deaths, Y Axis: new_deaths, color = county
+- X Axis: cases, Y Axis: new_cases, color = county
 - Transform the X and Y axis to be log10, but show the actual numbers
   for readability/interpretation.
-- Include only those counties in Megadeaths.
+- Include only those counties in Over1000.
 
 ```{r} 
 CountyData %>%
-    inner_join(TooManyDeaths, by="fips") %>%
-    ggplot(aes(deaths, new_deaths, color = county)) +
+    filter(new_cases > 0) %>%
+    inner_join(Over1000, by="fips") %>%
+    ggplot(aes(x = cases, y = new_cases, color = county)) +
     geom_point() +
     geom_line() +
     scale_x_log10() +
     scale_y_log10()
 ```
 
-Why is the second plot better for comparing different counties?  Think
-back to the video.
+Why is the second plot better for comparing different counties?  **Hint:**
+Think back to the video.
 
 # Maps!
 
@@ -391,25 +360,25 @@ CountyMap <- map_data("county") %>% filter(region == "new york")
 ## And . . . . see how this data transformation stuff IS useful?
 ## When doing REAL statistics.
 
-## This steop takes a minute.
+## This step takes a minute.
 CountyMapData <- 
     CountyData %>%
-    inner_join(MaxWeek, by = c("fips","week_of"="MaxDate")) %>%
+    inner_join(MaxDate, by = c("fips","week_of"="MaxDate")) %>%
     inner_join(CountyMap, by = "subregion")
 
 ggplot(CountyMapData, aes(long, lat, group = group))+
-    geom_polygon(aes(fill = deaths), color = "white")+
+    geom_polygon(aes(fill = cases), color = "white")+
     theme_classic() +
-    ggtitle("Distribution of Deaths by Coronavirus (2020)")
+    ggtitle("Distribution of Coronavirus Cases (2020)")
 ```
 
-## Task 09: Deaths Per 1000 County Residents
+## Task 09: Cases Per 1000 County Residents
 
 - There is some auto-correlation between population size (of the
   county) and the number of coronavirus cases there are. All else
-  being equal, larger counties will tend to have more deaths.
+  being equal, larger counties will tend to have more cases.
 - Add a column to CountyData called prop, for proportion. This should
-  be the number of deaths per 10,000 county residents.
+  be the number of cases per 1000 county residents.
 - Remember, you have to assign the output of your dplyr mutate to
   CountyData or it won't work.
 - Then, draw a new map showing the distribution of this new column,
@@ -420,23 +389,26 @@ ggplot(CountyMapData, aes(long, lat, group = group))+
 ## YOUR CODE HERE!
 CountyData <-
     CountyData %>%
-    mutate(prop = 10000*deaths/population)
+    mutate(prop = 1000*cases/population)
 
-## This steop takes a minute.
+## This step takes a minute.
 CountyMapData <- 
     CountyData %>%
-    inner_join(MaxWeek, by = c("fips","week_of"="MaxDate")) %>%
+    inner_join(MaxDate, by = c("fips","week_of"="MaxDate")) %>%
     inner_join(CountyMap, by = "subregion")
 
 ggplot(CountyMapData, aes(long, lat, group = group))+
     geom_polygon(aes(fill = prop), color = "white")+
     theme_classic() +
-    ggtitle("Distribution of Deaths by Coronavirus (2020)")
+    ggtitle("Distribution of Coronavirus Cases Per 1,000 Residents (2020)")
 ```
 
 Hopefully, you can see that although the distribution of raw case
 counts is very biased to NYC, the distribution of prop is much wider
 and it makes all of look quite a bit different.
+
+Now do the same for deaths. Do you see a similar pattern? Are deaths per 1,000
+residents similarly distributed?
 
 # Task 10: Is our work reproducible?
 
@@ -461,7 +433,7 @@ credit.
 # Task 13: Extra Credit
 
 If you can figure out how to apply all of these graphs to NYS counties
-with fewer than 100 coronavirus deaths, I'll give you half a
+with fewer than 1,000 coronavirus cases, I'll give you half a
 letter-grade on your lowest non-exam grade in the class. If you can
 figure out how to run the code against another state, there are even
 more opportunities:
