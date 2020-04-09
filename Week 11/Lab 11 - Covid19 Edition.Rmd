@@ -25,7 +25,6 @@ output: html_notebook
 library(knitr)
 library(lubridate) ## Yes, this is a real package, and yes, you will need to install it.
 library(maps)
-library(plotly) ## You are going to need to install this too. Sooo much installation.
 library(tidyverse)
 options(scipen=999)
 
