@@ -120,7 +120,10 @@ CountyData <-
 ## In it, calculate the max date, per county, found in this data set.
 ## This is similar to what we did in class. You will need this
 ## later. Group by fips. Summarize on the max date. Call this column
-## MaxDate
+## max_date
+##
+## Pro Tip: Group by fips. Not county. FIPS Codes are a way to identify
+## counties and they will make our joins later less painful.
 ##
 ## Pro Tip: You are going to need to use the assignment operator (<-)
 ## to complete this task. This will let you create a new dataframe.
@@ -129,11 +132,13 @@ CountyData <-
 
 ## YOUR CODE HERE!
 
-
-## Create a second dataframe called MaxCountyCases.
+## Create a second dataframe called MaxCases.
 ## In it, calculate the max number of cases in each county. This is
 ## similar to what you just did. Group by fips. Summarize the maximum
-## number of cases. Call this column MaxCases.
+## number of cases. Call this column MaxCountyCases.
+##
+## Pro Tip: Group by fips. Not county. FIPS Codes are a way to identify
+## counties and they will make our joins later less painful.
 ##
 ## Pro Tip: You are going to need to use the assignment operator (<-)
 ## to complete this task. This will let you create a new dataframe.
@@ -142,10 +147,9 @@ CountyData <-
 
 ## YOUR CODE HERE!
 
-
 ## Create a datafrane called Over1000
-## Create one more dataframe, based on CountyData which includes only
-## counties which have had 1000 or more cases. We will use
+## Create one more dataframe, based on MaxCountyCases which includes only
+## counties which have had 1000 or more max cases. We will use
 ## this as a filter below. Other counties are important, but this
 ## makes the graphs easier to read.
 ##
@@ -246,7 +250,6 @@ throughout New York State.
 ```{r} 
 ## YOUR CODE HERE!
 
-
 ```
 
 Also, while the numbers for Queens are exaggerated because the include
@@ -344,7 +347,7 @@ CountyMap <- map_data("county") %>% filter(region == "new york")
 ## This step takes a minute.
 CountyMapData <- 
     CountyData %>%
-    inner_join(MaxDate, by = c("fips","week_of"="MaxDate")) %>%
+    inner_join(MaxDate, by = c("fips","week_of"="max_date")) %>%
     inner_join(CountyMap, by = "subregion")
 
 ggplot(CountyMapData, aes(long, lat, group = group))+
@@ -415,3 +418,16 @@ more opportunities:
   
 This latter opportunity should be of interest to those of you with an
 incomplete item or two.
+
+
+```{r}
+CountyData %>%
+    filter(new_cases > 0, county %in% c("Albany","Saratoga","Rensselaer","Schenectady","Greene","Columbia","Schoharie","Montgomery","Washington","Warren","Fulton")) %>%
+    mutate(county = "Capital District") %>%
+    ggplot(aes(x = cases, y = new_cases, color = county)) +
+    geom_point() +
+    geom_line() +
+    scale_x_log10() +
+    scale_y_log10()
+```
+
