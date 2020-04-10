@@ -166,7 +166,7 @@ CountyData <-
 ## Below, is some code that will import estimates of New York State
 ## county populations. Use an inner_join() to join Population and
 ## CountyData. I recommend joining on fips. You want to create a new
-## CountyCases dataframe that ALSO contains the population data.
+## CountyData dataframe that ALSO contains the population data.
 ##
 ## Pro Tip: Any time you have a standard identification, like a FIPS
 ## code, use it for your joins. You are less likely to spend an hour
