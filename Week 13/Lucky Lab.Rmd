@@ -1,0 +1,23 @@
+---
+
+
+---
+
+# What Is Good?
+
+I know these last few weeks have been incredibly tough.
+
+[The Story of the Old Farmer](http://emptygatezen.com/teaching/2017/4/7/story-of-the-old-farmer)
+
+
+
+```{r}
+## INIT ========================================================================
+library(tidyverse)
+
+births_url <- "https://github.com/intro-to-data/Data/raw/master/births.csv"
+Births <- read_csv(births_url)
+names(Births) <- c("ID", "Facility", "Insurance", "Gender", "LOS", "Admitted", "Discharged", "BirthWeight", "TotalCharges")
+Births
+```
+

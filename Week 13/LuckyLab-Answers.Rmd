@@ -1,0 +1,177 @@
+---
+title: "Lucky Lab"
+output: html_notebook
+---
+
+# What Is Good?
+
+I know these last few weeks have been incredibly tough.
+
+[The Story of the Old Farmer](http://emptygatezen.com/teaching/2017/4/7/story-of-the-old-farmer)
+
+# Our Data - Births
+
+We were first introduced to the births data in a lab before Spring Break. (I 
+know, that seems like eons ago.) The data here is anonymous, but comes from the
+Capital District. It is also real, although old, data.
+
+```{r}
+## INIT ========================================================================
+library(tidyverse)
+options(scipen = 999)
+
+births_url <- "https://github.com/intro-to-data/Data/raw/master/births.csv"
+Births <- read_csv(births_url)
+names(Births) <- c("ID", "Facility", "Insurance", "Gender", "LOS", "Admitted", "Discharged", "BirthWeight", "TotalCharges")
+Births
+```
+
+It is always necessary to understand the context of the data. Below, is some
+information about our data:
+
+| # | Column      | Column Description                                           |
+|--:|:------------|:-------------------------------------------------------------|
+| 1 | ID          | Patient ID: Not an actual MRN or MemberID.                   |
+| 2 | Facility    | Hospital where the birth took place in the Capital District. |
+| 3 | Insurance   | Which insurance company paid for the birth?                  |
+| 4 | Gender      | Gender of baby.                                              |
+| 5 | LOS         | Length of Stay in days.                                      |
+| 6 | Admitted    | Day mother was admitted to hospital.                         |
+| 7 | Discharged  | Day baby was discharged from hospital.                       |
+| 8 | BirthWeight | Birth Weight (grams).                                        |
+| 9 | TotalCharges| Total Charges for the birth.                                 |
+
+This data should be familiar. Like your favorite blanket.
+
+
+
+# Tasks
+
+
+
+## Task 01: Charges
+
+- Plot a density plot of `TotalCharges`.
+- In Canvas, how would you describe the distribution of `TotalCharges`?
+  - Normally distributed, skewed?
+- In Canvas upload the plot of `TotalCharges` density plot.
+
+```{r}
+## YOUR CODE HERE!
+
+Births %>% 
+    ggplot(aes(TotalCharges)) +
+    geom_density() +
+    ggtitle("Density, Total Charges")
+```
+
+
+
+## Task 02: LOS
+
+- Plot `TotalCharges~LOS`. That is, draw a plot where `LOS` is the independent
+  variable and `TotalCharges` is the dependent variable. 
+- Include a `geom_smooth(method="lm")` in your plots.
+- In Canvas, describe your observations about the relationship between these 
+  two variables. Include:
+  - Is the relationship positive or negative?
+  - Do the residuals appear to be normally distributed?
+  - Does the relationship actually appear linear? (And not curved, which would 
+    suggest a more complex model.)
+  - Later we will try to produce a model predicting total charges. Based on your 
+    observations, which will this feature be useful in our model?
+
+```{r}
+## YOUR CODE HERE!
+
+Births %>% 
+    ggplot(aes(LOS, TotalCharges)) +
+    geom_point() +
+    geom_smooth(method = "lm") +
+    ggtitle("TotalCharges~LOS")
+```
+
+
+
+
+## Task 03: Birth Weight
+
+- Plot `TotalCharges~BirthWeight`. That is, draw a plot where `BirthWeight` is 
+  the independent variable and `TotalCharges` is the dependent variable.
+- Include a `geom_smooth(method="lm")` in your plot.
+- In Canvas, describe your observations about the relationship between these 
+  two variables. Include:
+  - Is the relationship positive or negative?
+  - Do the residuals appear to be normally distributed?
+  - Does the relationship actually appear linear? (And not curved, which would 
+    suggest a more complex model.)
+  - Later we will try to produce a model predicting total charges. Do you think
+    this feature would be useful?
+
+```{r}
+## YOUR CODE HERE!
+  
+Births %>% 
+    ggplot(aes(BirthWeight, TotalCharges)) +
+    geom_point() +
+    geom_smooth(method = "lm") +
+    ggtitle("TotalCharges~BirthWeight")
+```
+
+
+
+## Task 04: First Linear Model
+
+- Create a linear model of `TotalCharges~LOS`. Call it `TCLS`.
+- Pro Tip: The function for creating a linear model is `lm`. The function to
+  see the model details, use `summary(TCLS)`.
+- In Canvas:
+  - Enter the R-squared for `TCLS`.
+
+```{r}
+## YOUR CODE HERE (TCLS)
+TCLS <- lm(TotalCharges~LOS, data = Births)
+summary(TCLS)
+```
+
+
+
+## Task 05: Second Linear Model
+
+- Create a linear model of `TotalCharges~BirthWeight`. Call it `TCBW`.
+- In Canvas:
+  - Enter the R-squared for `TCBW`.
+
+```{r}
+## YOUR CODE HERE (TCBW)
+TCBW <- lm(TotalCharges~BirthWeight, data = Births)
+summary(TCBW)
+```
+
+## Task 06: Which is a better predictor of Total Charges
+
+- Based on your understanding of how the linear model works, which of the two
+  models, `TCLS` or `TCBW`, is a better predictor of TotalCharges?
+- Tell me why in Canvas. Integrate information from your plots and your model 
+  to support your argument (you do not need to upload the image, unless you 
+  just want to). I know what the plots look like, so you can describe them.
+
+
+
+## Task 07: Combined
+
+- Create one final model, which uses `LOS` and `BirthWeight`, to predict Total Charges.
+- Call this model `Combined`.
+- Copy/paste the code you settle on to produce this model in Canvas.
+
+```{r}
+## YOUR CODE HERE!
+
+
+```
+
+
+- Based on our discussion of R model formulas last week, create a single linear
+  model that uses both LOS and 
+
+

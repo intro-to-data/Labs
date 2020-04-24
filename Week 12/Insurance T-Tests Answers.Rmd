@@ -1,0 +1,239 @@
+---
+title: "Insurance T-Tests"
+output: html_notebook
+---
+
+# Insurance
+
+Do you remember the Insurance data set we played with back before the 
+Coronapocalypse? Well, it's back! I'm going to give you a break this week. 
+This should be a fairly easy lab.
+
+Because you will need to download (or re-download) the Insurance data, I suggest
+using R Studio to create a new project for this lab or re-use the project you
+created for lab 3. Your choice. Either way, you will need to have the file,
+`insurance.csv` in the same folder as this R Markdown Notebook.
+
+# Task 01: Import data
+
+- Run this first code chunk. It imports the data. If it cannot find the data, 
+  it will return an error.
+- In Canvas, tell me how many rows of data are in `insurance.csv`.
+
+```{r}
+library(tidyverse)
+options(scipen = 999)
+
+
+## DATA =======================================================================
+## Loads the data and provides an initial view.  This code checks for
+## the presence of insurance.csv. If it fails to find the data file,
+## it will give you an error and stop.
+data_file <- "insurance.csv"
+if (file.exists(data_file)){
+    Insurance <- read_csv(file = data_file)
+} else {
+    stop("The data file is not in your current working directory.")
+}
+Insurance
+
+```
+
+
+
+# Task 02: BMI by Gender
+
+- Add a new code-chunk by clicking the *Insert Chunk* button on the toolbar or 
+  by pressing *Ctrl+Alt+I*.
+- Calculate:
+    - the average BMI
+    - the standard deviation of BMI
+    - stratify by gender `sex`
+- In Canvas, tell me which gender has the highest average BMI.
+- *Pro Tip:* Leave a blank line between any/all plain text and the fence 
+  markers which surround a code-chunk. 
+
+YOUR CODE CHUNK HERE!
+
+```{r}
+Insurance %>%
+    group_by(sex) %>%
+    summarize(n = n(), AvgBMI = mean(bmi), SDBMI = sd(bmi))
+```
+
+
+
+# Task 03: T-Test, Gender
+
+- The t-test can only compare two averages at a time.
+- Are the observed differences in BMI (less than 1) between the two genders
+  statistically significant? Use the `t.test` to calculate the p-value and 
+  reject the null hypothesis if p <= .05.
+- In Canvas: 
+    - Tell me what the null hypothesis is in this example. (No more than a few 
+      sentences.)
+    - Tell me the p-value. (you can round to two decimal places.)
+    - Tell me if you can can reject the null hypothesis.
+- Hint: We discussed, at length, how to use R's formula notation.
+    - In this case, BMI as a function of Gender.
+    - Now, how do you write that in the t.test parameters?
+- Pro Tip: If you use `%>%` to pass the data to the `t.test` function, you must
+  manually include a parameter `data = .`. Because t.test is an OLD SKOOL R 
+  function, it cannot magically find the data. We have to be explicit.
+  
+YOUR CODE CHUNK HERE!
+
+```{r}
+Insurance %>% t.test(bmi~sex, data=.)
+```
+
+
+
+# Task 04: Do You Agree?
+
+- Insert a code chunk.
+- Draw a box-plot of BMI by sex. Upload this to Canvas.
+- Do you agree/disagree with the results of the t-test above? 
+  Tell me why/why not.
+
+
+
+
+# Task 05: How many rows would we need?
+
+- See the documentation for `power.t.test` for more information.
+    - Hint: `?power.t.test` in the console.
+    - OR use the help section in the pane to the right -->
+- This function has five parameters which interact. When used, exactly
+  one parameter must be passed as NULL.
+- I would like to estimate how much data I need to collect in order to find
+  statistically significant results.
+- Use the following values in `power.t.test`.
+    - n: NULL
+    - delta: The observed difference between the BMI of men and women.
+    - power: .9 (This is standard, for Type II error)
+    - sd = The observed standard deviation for the two groups. They are similar.
+    - sig.level: .05 (This is a standard, for Type I error)
+- Use your calculations from Task 02 to help you complete this.
+- When calculating values for delta and sd, don't go beyond 2 decimal places.
+- Also, feel free to use a calculator. You don't have to do this in R.
+- For sd, use the bigger of the two to be conservative.
+- To better understand power and sig.level, read this: [Type I and Type II Errors](https://en.wikipedia.org/wiki/Type_I_and_type_II_errors)
+
+YOUR CODE CHUNK HERE!
+
+
+NOTE: THE ANSWER HERE IN CANVAS IS WRONG!!!!!
+
+```{r}
+power.t.test(n = NULL, 
+             delta = .57, 
+             power = .9, 
+             sd = 6.14, 
+             sig.level = .05)
+```
+
+
+
+# Task 06: BMI by Region
+
+- Calculate:
+    - the average BMI
+    - the standard deviation of BMI
+    - stratify by region
+- In Canvas, tell me which region has the highest average BMI.
+
+YOUR CODE CHUNK HERE!
+
+```{r}
+Insurance %>%
+    group_by(region) %>%
+    summarize(n = n(), AvgBMI = mean(bmi), SDBMI = sd(bmi))
+```
+
+
+
+# Task 07: T-Test, Region
+
+- Is the observed difference between the BMI in the South East ans South West 
+  statistically significant?
+- You will need to create a code-chunk, and filter the data down to only those 
+  two regions.
+    - This is something we haven't done much of.
+    - In you filter command, do something like `region %in% c("southeast","southwest")`
+- In Canvas: 
+    - Tell me what the null hypothesis is in this example. (No more than a few 
+      sentences.)
+    - Tell me the p-value. (you can round of to two decimal places.)
+    - Tell me if you can can reject the null hypothesis.
+- Pro Tip: If you use `%>%` to pass the data to the `t.test` function, you must
+  manually include a parameter `data = .`. Because t.test is an OLD SKOOL R 
+  function, it cannot magically find the data. We have to be explicit.
+
+YOUR CODE CHUNK HERE!
+
+```{r}
+Insurance %>% 
+  filter(region %in% c("southeast","southwest")) %>% 
+  t.test(bmi~region, data=.)
+```
+
+
+
+# Task 08: Minimum number of rows?
+
+- See the documentation for `power.t.test` for more information.
+    - Hint: `?power.t.test` in the console.
+    - OR use the help section in the pane to the right -->
+- This function has five parameters which interact. When used, exactly
+  one parameter must be passed as NULL.
+- I would like to estimate the minimum number of rows needed in order to find
+  statistically significant results between these two regions.
+- Use the following values in `power.t.test`.
+    - n: NULL
+    - delta: The observed difference between the BMI of the southeast and southwest.
+    - power: .9 (This is standard, for Type II error)
+    - sd = The observed standard deviation for the two groups. They are similar.
+    - sig.level: .05 (This is a standard, for Type I error)
+- Use your calculations from Task 02 to help you complete this.
+- When calculating values for delta and sd, don't go beyond 2 decimal places.
+- Also, feel free to use a calculator. You don't have to do this in R.
+- For sd, use the bigger of the two to be conservative.
+
+YOUR CODE CHUNK HERE!
+
+```{r}
+power.t.test(n = NULL, 
+             delta = 3.2, 
+             power = .9, 
+             sd = 6.5, 
+             sig.level = .05)
+```
+
+
+
+# Task 09: Next Steps
+
+- I _hope_ I have proven that achieving statistical significance is about
+  the interaction between the observed difference (delta), the standard 
+  deviation, amount of data collected, and power/significance level.
+    - A smaller standard deviation will reduce the amount of data needed to
+      achieve statistical significance.
+    - A larger difference in observed means will decrease the amount of data
+      needed to achieve statistical significance.
+- One major concern I have is how statistical significance is often applied.
+    - Researchers rarely determine how much data they will collect. The use
+      a convenience sample from an EHR, or they estimate how many people they
+      can test based on the value of their latest grant.
+    - And, in all fairness, more data is always better if the data is unbiased.
+- Given all of these constraints, what can researchers do to protect
+  themselves (and the public) from reporting false positives?
+- Hint: This isn't something that can be solved for in R. This is a thought 
+  experiment.
+  
+
+
+# Task 10: Upload your .Rmd file to Canvas
+
+- You know the drill.
+- BE CAREFUL to not upload Insurance.R if you reused the Lab 3 project folder.
